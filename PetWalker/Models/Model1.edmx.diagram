@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82dd6c8523644bab86d025a677111d25" Name="Diagram1" ZoomLevel="78" >
+        <EntityTypeShape EntityType="PetWalkerDBModel.Achievement" Width="1.5" PointX="8.25" PointY="21.75" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Comment" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Customer" Width="1.5" PointX="0.75" PointY="9.125" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Follow" Width="1.5" PointX="3" PointY="21" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Like" Width="1.5" PointX="5.25" PointY="14.625" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Message" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Pet" Width="1.5" PointX="3" PointY="16.875" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Post" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Rating" Width="1.5" PointX="8.25" PointY="13.125" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Walk" Width="1.5" PointX="8.25" PointY="17" />
+        <EntityTypeShape EntityType="PetWalkerDBModel.Walker" Width="1.5" PointX="6" PointY="17.625" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Achievements_Walkers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Comment_Comment" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Comment_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Comment_Posts" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Like_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Pet_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Posts_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Ratings_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Walk_Customers" />
+        <AssociationConnector Association="PetWalkerDBModel.Follower" />
+        <AssociationConnector Association="PetWalkerDBModel.Following" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Like_Posts" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Ratings_Ratings" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Walk_Pet" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Ratings_Walk" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Ratings_Walkers" />
+        <AssociationConnector Association="PetWalkerDBModel.FK_Walk_Walkers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

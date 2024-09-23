@@ -1,0 +1,541 @@
+﻿@model List<PetWalker.Models.Post>
+@{
+    var LoggedIn = "Not Logged";
+    var Walker = "Not Logged";
+    var Extension = ".png";
+
+    Session["VisitorID"] = null;
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+</head>
+<body>
+
+
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                @if (Walker == "yes")
+                {
+                    <a class="profile" href="/Walker/WalkerProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a class="profile" href="/User/UserProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+
+                <!----------------- SIDEBAR -------------------->
+
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item active">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item active">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+
+            <!----------------- MIDDLE -------------------->
+            <div class="middle">
+                <!----------------- STORIES -------------------->
+                <!----------------- END OF STORIES -------------------->
+                <form  action="" class="create-post">
+                    <div id="profile-photo-index">
+                        <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                    </div>
+                    <input type="text" placeholder="What's on your mind ?" id="createPost">
+                    <label style="margin-right:5px;padding:10px;" class="btn btn-primary">
+                        <i class="fa fa-image"></i>
+                        <input style="display:none" type="file" id="pictureUpload" name="filename">
+                    </label>
+                    <input value="Post" class="btn btn-primary" id="sendPost" style="width:100px;">
+                </form>
+                <!----------------- FEEDS -------------------->
+
+                <div class="feeds">
+                    @foreach (var item in Model.AsEnumerable().Reverse())
+                    {
+
+                        <!----------------- FEED 1 -------------------->
+                        <div class="feed">
+                            <div class="head">
+                                <div class="user">
+                                    <div id="profile-photo-index">
+                                        <a href="/User/InspectUserProfile" onclick="OpenProfile(@Html.DisplayFor(modelItem => item.PostOwnerID))"><img src="/Content/images/ProfilePhotos/@Html.DisplayFor(modelItem => item.PostOwnerID)@Extension"></a>
+                                    </div>
+                                    <div class="info">
+                                        <h3>@Html.DisplayFor(modelItem => item.PostOwnerNameSurname)</h3>
+                                        <small>@Html.DisplayFor(modelItem => item.PostDate)</small>
+                                    </div>
+                                </div>
+                                <span class="edit">
+                                    <i class="uil uil-ellipsis-h"></i>
+                                </span>
+                            </div>
+
+                            <div class="photo">
+                                <img src="/Content/images/Posts/@Html.DisplayFor(modelItem => item.PostID)@Extension">
+                            </div>
+
+                            <div class="caption">
+                                <b>@Html.DisplayFor(modelItem => item.PostOwnerNameSurname)</b> @Html.DisplayFor(modelItem => item.PostText)
+                            </div>
+                            <div class="action-buttons">
+                                <div class="interaction-buttons">
+                                    @if (Walker == "yes")
+                                    {
+
+                                    }
+                                    <span>@Html.DisplayFor(modelItem => item.PostLikeCount)<i class="uil uil-heart" onclick="LikePost(@Html.DisplayFor(modelItem => item.PostID))" )></i></span>
+                                    <span>@Html.DisplayFor(modelItem => item.PostCommentCount)<i class="uil uil-comment-dots"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="liked-by">
+                                Liked by
+                                <p id="@Html.DisplayFor(modelItem => item.PostID)" onmouseover="GetLikerName(@Html.DisplayFor(modelItem => item.PostID))">?</p>
+                            </div>
+
+
+                            <div class="comments text-muted">
+                                <p id="_@Html.DisplayFor(modelItem => item.PostID)"></p>
+                                <div style="border: 1px solid var(--color-primary)" ; class="create-post">
+                                    <input type="text" onmouseover="GetComment(@Html.DisplayFor(modelItem => item.PostID))" id="CommentText_@Html.DisplayFor(modelItem => item.PostID)" placeholder="Write your comment">
+                                    <label class="btn btn-primary" onclick="SendComment(@Html.DisplayFor(modelItem => item.PostID))" id="SendComment"><i class="fa fa-comment"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!----------------- END OF FEED 1 -------------------->
+                </div>
+                <!----------------- END OF FEEDS -------------------->
+            </div>
+            <!----------------- END OF MIDDLE -------------------->
+            <!----------------- RIGHT -------------------->
+            <!--<div class="right">-->
+                <!------- MESSAGES ------->
+                <!------- END OF MESSAGES ------->
+                <!------- FRIEND REQUEST ------->
+                <!--<div class="friend-requests">
+                    <h4>Someone you might know</h4>
+                    <div class="request">
+                        <div class="info">
+                            <div id="profile-photo">
+                                <img style="height:2.7rem;width:2.7rem" src="./images/profile-20.jpg">
+                            </div>
+                            <div>
+                                <h5>Hajia Bintu</h5>
+                                <p class="text-muted">8 mutual friends</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Accept
+                            </button>
+                            <button class="btn">
+                                Decline
+                            </button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div id="profile-photo">
+                                <img style="height:2.7rem;width:2.7rem" src="./images/profile-18.jpg">
+                            </div>
+                            <div>
+                                <h5>Edelson Mandela</h5>
+                                <p class="text-muted">2 mutual friends</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Accept
+                            </button>
+                            <button class="btn">
+                                Decline
+                            </button>
+                        </div>
+                    </div>
+                    <div class="request">
+                        <div class="info">
+                            <div id="profile-photo">
+                                <img style="height:2.7rem;width:2.7rem" src="./images/profile-17.jpg">
+                            </div>
+                            <div>
+                                <h5>Megan Baldwin</h5>
+                                <p class="text-muted">5 mutual friends</p>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary">
+                                Accept
+                            </button>
+                            <button class="btn">
+                                Decline
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!----------------- END OF RIGHT -------------------->
+        </div>
+
+    </main>
+    <!----------------- THEME CUSTOMIZATION -------------------->
+
+</body>
+
+@*<body class="background-container">
+        <main class="give_borderRad ">
+            <div class="container">
+                <div class="profile">
+                    <div class="profile-info">
+                        <div class="profile-photo">
+                            <img class="give_borderRad" src="~/Content/images/dog9.jpg" alt="Profil Resmi">
+                        </div>
+                        <div class="profile-details">
+                            <h1>Profile Details</h1>
+                            <p class="mb-0">Name Surname : @Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"])) </pclass="mb-0">
+                            <p class="mb-0">Email: @Html.Label(Convert.ToString(Session["EMail"]), Convert.ToString(Session["EMail"]))</p>
+                            <p class="mb-0"> Phone: @Html.Label(Convert.ToString(Session["Phone"]), Convert.ToString(Session["Phone"]))</p>
+                            <p class="mb-0">Address: @Html.Label(Convert.ToString(Session["Address"]), Convert.ToString(Session["Address"]))</p>
+                            <p class="mb-0">Zip Postal: @Html.Label(Convert.ToString(Session["ZipPostal"]), Convert.ToString(Session["ZipPostal"]))</p>
+                            <p class="mb-0">Date of Birth: @Html.Label(Convert.ToString(Session["DOB"]), Convert.ToString(Session["DOB"]))</p>
+                        </div>
+
+                        <div class="profile-details4Edit">
+                            <h1>Profile Details</h1>
+                            <p class="mb-0">Name Surname : @Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"])) </p>
+                            <div class="row">
+                                <div class="col">
+                                    <input placeholder="Name" type="text" class="form-control" id="FName" required>
+                                </div>
+                                <div class="col">
+                                    <input placeholder="Surname" type="text" class="form-control" id="LName" required>
+                                </div>
+                                <div class="col">
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            Email: @Html.Label(Convert.ToString(Session["EMail"]), Convert.ToString(Session["EMail"]))
+                            <input type="email" class="form-control" id="EMail" placeholder="Email address" required>
+                            <p class="mb-0">Phone: @Html.Label(Convert.ToString(Session["Phone"]), Convert.ToString(Session["Phone"]))</p>
+                            <input type="tel" class="form-control" id="Phone" name="phone" pattern=".{10,}" placeholder="Phone" title="Must contain at least 10 digit number" required>
+                            <p class="mb-0">Address: @Html.Label(Convert.ToString(Session["Address"]), Convert.ToString(Session["Address"]))</p>
+                            <input type="text" class="form-control" id="Address" placeholder="Address" required>
+                            <p class="mb-0">Zip Postal: @Html.Label(Convert.ToString(Session["ZipPostal"]), Convert.ToString(Session["ZipPostal"]))</p>
+                            <input type="text" class="form-control" id="Zip" placeholder="Zip" required>
+                            <p class="mb-0">Date of Birth: @Html.Label(Convert.ToString(Session["DOB"]), Convert.ToString(Session["DOB"]))</p>
+                            <input type="date" class="form-control" id="DOB" max="2014-01-01" required>
+                            <p class="mb-0">If you want to change your password you can fill this textbox.</p>
+                            <input type="password" id="Password" name="pwd" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="Password" required>
+                            <p class="mb-0">ID Number is used for recovery of account.</p>
+                            <input type="text" class="form-control" id="IDNumber" placeholder="(Optional)">
+                            <p></p>
+                            <button onclick="UpdateProfile()" class="btn btn-dark">Save Profile</button>
+                            <p></p>
+
+                        </div>
+
+                    </div>
+                    <div class="pet-list" id="PetList">
+                        <hr>
+                        <h1>Pets</h1>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Pet Name</th>
+                                    <th>Weight</th>
+                                    <th>Age</th>
+                                    <th>Breed</th>
+                                    <th>Color</th>
+                                </tr>
+                            </thead>
+                            <tbody class="WhereWeBegin">
+                            </tbody>
+                        </table>
+                        <ul>
+                            <a type="button" class="btn btn-info" href="/User/AddPet">Add Pet</a>
+                            <button onclick="ToggleProfile()" class="btn btn-primary">Edit Profile</button>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous"></script>
+    </body>*@
+
+</html>
+<script src="/Scripts/index.js"></script>
+<script src="/Scripts/profile.js"></script>
+<script>
+    //$(document).ready(function () {
+    //            $.ajax({
+    //                type: "POST",
+    //                url: 'PetGet',
+    //                contentType: "application/json; charset=utf-8",
+    //                data: JSON.stringify(),
+    //                success: function (data) {
+    //                    if (data == "False") {
+    //                        alert("Veri bulunamadı")
+    //                    }
+    //                    else {
+    //                        alert("Veri getirildi")
+    //                        $("#PetList").load(window.location.href + " #PetList");    }
+    //                },
+    //            });
+    //        }
+    //); OLD VERSION
+
+
+
+    $(document).ready(function () {
+        $('.profile-details4Edit').hide();
+        $.ajax({
+            type: "POST",
+            url: 'GetPet',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var loopCount = data.length / 5;
+                for (var z = 0; z < loopCount; z++) {
+                    $('.WhereWeBegin:last').append('<tr>');
+                    var Header = $('<tr>');
+                    var PetName = $('<td></td>').html(data[z * 5]).show(300);
+                    var PetWeight = $('<td></td>').html(+ data[z * 5 + 1]).show(300);
+                    var PetAge = $('<td></td>').html(data[z * 5 + 2]).show(300);
+                    var PetBreed = $('<td></td>').html(data[z * 5 + 3]).show(300);
+                    var PetColor = $('<td></td>').html(data[z * 5 + 4]).show(300);
+                    $('.WhereWeBegin:last').last().append(Header);
+                    $('.WhereWeBegin:last').last().append(PetName);
+                    $('.WhereWeBegin:last').last().append(PetWeight);
+                    $('.WhereWeBegin:last').last().append(PetAge);
+                    $('.WhereWeBegin:last').last().append(PetBreed);
+                    $('.WhereWeBegin:last').last().append(PetColor);
+                    $('.WhereWeBegin:last').append($('</tr>'));
+                }
+            }
+        });
+    });
+    function OpenProfile(ID) {
+        $.ajax({
+            type: "POST",
+            url: '/User/VisitProfile',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ ID: ID }),
+            success: function (data) {
+               /* alert(ID);*/
+            }
+        });
+    }
+    function GetLikerName(PostID) {
+        $.ajax({
+            type: "POST",
+            url: '/Home/GetLikerName',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ PostID: PostID }),
+            success: function (data) {
+                $("#" + PostID).text(data);
+            }
+        });
+    }
+    function GetComment(PostID) {
+        $('#_' + PostID).text("");   
+        $.ajax({
+            type: "POST",
+            url: '/Home/GetComments',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ PostID: PostID }),
+            success: function (data) {
+                for (var z = 0; z < data.length; z ++) {
+                    var UserName = $('<p id="comment'+z+'"></p>').html(data[z]).show(300);
+                    $('#_' + PostID).append(UserName);                    
+                }
+            }
+            });
+    }
+    function SendComment(PostID) {
+        var Comment = $('#CommentText_' + PostID).val();
+        $.ajax({
+            type: "POST",
+            url: '/Home/SendComment',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ PostID: PostID, Comment: Comment }),
+            success: function (data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    }
+    function ToggleProfile() {
+        $('.profile-details4Edit').toggle(300);
+        $('.profile-details').toggle(300);
+    }
+    function LikePost(PostID) {
+        $.ajax({
+            type: "POST",
+            url: '/Home/LikePost',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ PostID: PostID }),
+            success: function (data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    }
+    function UpdateProfile() {
+        var IDNumber = NullToEmpty($('#IDNumber').val());
+        var FName = NullToEmpty($('#FName').val());
+        var LName = NullToEmpty($('#LName').val());
+        var EMail = NullToEmpty($('#EMail').val());
+        var Phone = NullToEmpty($('#Phone').val());
+        var Password = NullToEmpty($('#Password').val());
+        var DOB = NullToEmpty($('#DOB').val());
+        var Address = NullToEmpty($('#Address').val());
+        var ZipPostal = NullToEmpty($('#Zip').val());
+        $.ajax({
+            type: "POST",
+            url: 'UpdateProfile',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ FName: FName, LName: LName, EMail: EMail, Phone: Phone, Password: Password, DOB: DOB, Address: Address, ZipPostal: ZipPostal, IDNumber: IDNumber }),
+            success: function (data) {
+                alert("Profile updated")
+                window.location.href = '../User/LogOut';
+            },
+            error: function (data) {
+                alert("Something wrong happened, sorry.")
+            }
+        });
+    }
+    function NullToEmpty(check) {
+        if ((check == "") || (check == null)) {
+            return " ";
+        }
+        else {
+            return check;
+        }
+    }
+    $("#sendBtnForMessage").click(function () {
+        var message = $('.messageText').val();
+        if (message != null) {
+            $.ajax({
+                type: "POST",
+                url: '/Home/SendMessage',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ message: message }),
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+    });
+    $("#sendPost").click(function () {
+        var PostText = $('#createPost').val();
+        var formData = new FormData();
+        var totalFiles = document.getElementById("pictureUpload").files.length;
+        for (var i = 0; i < totalFiles; i++)
+            var file = document.getElementById("pictureUpload").files[i];
+        formData.append("pictureUpload", file);
+        formData.append("PostText", PostText)
+        $.ajax({
+            type: "POST",
+            url: 'UploadPost',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+        })
+            .done(function () {
+                alert("Post created!");
+                location.reload();
+            })
+            .fail(function (xhr, status, errorThrown) {
+                alert("Something wrong happened!");
+            })
+    });
+
+</script>

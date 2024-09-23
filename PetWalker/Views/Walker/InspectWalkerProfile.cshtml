@@ -1,0 +1,586 @@
+﻿@model List<PetWalker.Models.Walker>
+@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    Session["VisitorID"] = null;
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Contact</title>
+    <!-- IconScout CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+@*<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>profile</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/Content/styles/walkerProfile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .toper {
+                color: rebeccapurple;
+            }
+
+
+            .background-container {
+                position: relative;
+                border-radius: 100px
+            }
+
+                .background-container::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('/Content/images/pattern100.jpg');
+                    opacity: 0.1; /* Adjust the opacity as needed */
+                    z-index: -1; /* Ensure the pseudo-element is behind the content */
+                }
+        </style>
+
+    </head>*@
+
+<body>
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                <a class="profile" href="/User/UserProfile">
+                    <div id="profile-photo">
+                        <img style="height:2.7rem;width:2.7rem" src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                    </div>
+                    <div class="handle">
+                        <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                        <p class="text-muted">
+                            #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                        </p>
+                    </div>
+                </a>
+
+                <!----------------- SIDEBAR -------------------->
+                <div class="sidebar">
+                    <a href="/Home/Index" class="menu-item">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
+                    </a>
+                    <a href="/User/SearchProfile" class="menu-item active">
+                        <span><i class="uil uil-compass"></i></span>
+                        <h3>Explore</h3>
+                    </a>
+                    <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                        <span><i class="uil uil-envelope-alt"><small class="notification-count">6</small></i></span>
+                        <h3>Messages</h3>
+                    </a>
+                    <a class="menu-item">
+                        <span><i class="uil uil-bookmark"></i></span>
+                        <h3>Bookmarks</h3>
+                    </a>
+                    <a href=/Walker/WalkDetail class="menu-item ">
+                        <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                        <h3 style="margin-left: 30px;">Walks</h3>
+                    </a>
+                    <a href=/User/UserProfile class="menu-item" id="theme">
+                        <span><i class="uil uil-user"></i></span>
+                        <h3>Profile</h3>
+                    </a>
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+                <label class="btn btn-primary" for="create-post">Create Post</label>
+            </div>
+            <!----------------- END OF LEFT -------------------->
+            <!----------------- MIDDLE -------------------->
+            <div class="middle">
+                <div id="profile-page">
+                    <div id="profile-container">
+                        <div id="profile-header">
+                            <div id="profile-photo">
+                                <img src="/Content/images/demo-images/profile-1.jpg" alt="Profile Photo">
+                            </div>
+                            <div id="profile-stats">
+                                <h1 id="username">Nia Ridania</h1>
+                                <p style="color:grey;margin-top:-10px" id="is-walker">Walker</p><!-- Normal user ise boş olucak walker ise walker yazıcak-->
+                                <div id="stats">
+                                    <div class="stat">
+                                        <span class="count">150</span>
+                                        <span class="label">Posts</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="count">2000</span>
+                                        <span class="label">Followers</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="count">180</span>
+                                        <span class="label">Following</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="profile-buttons">
+                                <button id="profile-button">Follow</button>
+                                <button id="profile-button">Unfollow</button>
+                                <button id="profile-button">Lets Walk</button>
+                                <button id="profile-button">Message</button>
+
+                            </div>
+                        </div>
+                        <div id="profile-info">
+                            <p>
+                                <b>About Me:</b>Lorem ipsum dolor sit amet, am
+                                atmalesuada arcu.
+                            </p>
+                            <p id="services">
+                                <b>Services Offered:</b> Dog Walking, Pet Sitting, Pet
+                                Training
+                            </p>
+                            <p id="services">
+                                <b>Walker Rate:</b> 5⭐
+                            </p>
+                            <p id="services">
+                                <b>Adress:</b>Adana
+                            </p>
+                            <p id="services">
+                                <b>Phone:</b> 1234567890
+                            </p>
+                            <p id="services">
+                                <b>E-mail:</b> test@test
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="profile-nav-container">
+                        <div class="nav-item active">
+                            <button onclick="showSection('posts')">
+                                <span class="icon">⬛</span>
+                                <span class="label">POSTS</span>
+                            </button>
+                        </div>
+
+                        <div class="nav-item">
+                            <button onclick="showSection('pets')">
+                                <span class="icon">🐾</span>
+                                <span class="label">PETS</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="posts" class="content-section">
+                        <div id="post-container">
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image" onclick="openPostPopup()">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg    " alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/pet-walker-1.jpg" alt="Pet Image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="saved" class="content-section">
+                        <div id="post-container">
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image" onclick="openPostPopup()">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                            <div class="post">
+                                <img class="post-image" src="/Content/images/demo-images/feed-5.jpg" alt="Pet Image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pets" class="content-section">
+                        <div id="post-container">
+                            <div class="pet-container">
+                                <img src="/Content/images/demo-images/pet-1.jpeg" alt="Pet Image">
+                                <div class="pet-info">
+                                    <p>Pet Name: Fluffy</p>
+                                    <p>Age: 2 years</p>
+                                    <p>Breed: Scottish Fold</p>
+                                    <p>Type: Dog</p>
+                                </div>
+                            </div>
+                            <div class="pet-container">
+                                <img src="/Content/images/demo-images/pet-1.jpeg" alt="Pet Image">
+                                <div class="pet-info">
+                                    <p>Pet Name: Whiskers</p>
+                                    <p>Age: 1 year</p>
+                                    <p>Breed: Persian</p>
+                                    <p>Type: Dog</p>
+                                </div>
+                            </div>
+                            <div class="pet-container">
+                                <img src="/Content/images/demo-images/pet-1.jpeg" alt="Pet Image">
+                                <div class="pet-info">
+                                    <p>Pet Name: Fluffy</p>
+                                    <p>Age: 2 years</p>
+                                    <p>Breed: Scottish Fold</p>
+                                    <p>Type: Dog</p>
+                                </div>
+                            </div>
+                            <div class="pet-container">
+                                <img src="/Content/images/demo-images/pet-1.jpeg" alt="Pet Image">
+                                <div class="pet-info">
+                                    <p>Pet Name: Whiskers</p>
+                                    <p>Age: 1 year</p>
+                                    <p>Breed: Persian</p>
+                                    <p>Type: Dog</p>
+                                </div>
+                            </div>
+                            <div class="pet-container">
+                                <img src="/Content/images/demo-images/pet-1.jpeg" alt="Pet Image">
+                                <div class="pet-info">
+                                    <p>Pet Name: Fluffy</p>
+                                    <p>Age: 2 years</p>
+                                    <p>Breed: Scottish Fold</p>
+                                    <p>Type: Dog</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!---Post Details Popup --->
+                    <div id="post-popup" class="popup">
+                        <div class="popup-content">
+                            <span class="close" onclick="closePopup()">&times;</span>
+                            <div class="popup-left">
+                                <img src="/Content/images/demo-images/feed-5.jpg" alt="Popup Content">
+                            </div>
+                            <div class="popup-right">
+                                <div class="popup-header">
+                                    <a href="#" class="popup-username">@@baanmeemeenoo</a>
+                                    <button id="profile-button">Follow</button>
+                                </div>
+                                <div class="popup-comments">
+                                    <p><a onclick="closePopup()" href="profile-owner.html" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                    <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                    <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                </div>
+                                <div class="popup-actions">
+                                    <button class="like-button"><i class="uil uil-thumbs-up"></i></button>
+                                    <button class="save-button"><i class="uil uil-bookmark"></i></button>
+                                </div>
+                                <div class="popup-info">
+                                    <p>23,590 likes</p>
+                                    <p>Published on May 3rd</p>
+                                </div>
+                                <div class="popup-comment-box">
+                                    <input type="text" placeholder="Add a comment...">
+                                    <button>Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!---Pet Add Popup--->
+                    <div id="add-pet-popup" class="popup">
+                        <div class="add-pet-popup-content">
+                            <span class="close" onclick="closeAddPetPopup()">&times;</span>
+                            <div class="add-pet-form">
+                                <h2>Add New Pet</h2>
+                                <div class="image-container">
+                                    <img id="image-preview" class="image-preview" src="/Content/images/demo-images/pet-blank.jpeg" alt="Pet Image" onclick="document.getElementById('pet-image').click()">
+                                    <input type="file" id="pet-image" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                                </div>
+                                <input type="text" placeholder="Pet Name">
+                                <input type="number" placeholder="Age">
+                                <input type="text" placeholder="Breed">
+                                <input type="text" placeholder="Type">
+                                <button id="profile-button">Add Pet</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!---Edit Profile Popup--->
+                    <div id="edit-profile-popup" class="popup">
+                        <div style="margin: 1.5% auto;" class="add-pet-popup-content">
+                            <span class="close" onclick="closeEditProfilePopup()">&times;</span>
+                            <div class="add-pet-form">
+                                <h2>Edit Profile</h2>
+                                <div class="image-container">
+                                    <img id="image-preview" class="image-preview" src="/Content/images/demo-images/profile-1.jpg" alt="Profile Image" onclick="document.getElementById('profile-image').click()">
+                                    <input type="file" id="profile-image" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                                </div>
+                                <input type="text" placeholder="First Name">
+                                <input type="text" placeholder="Last Name">
+                                <input type="text" placeholder="E-mail">
+                                <input type="number" placeholder="Phone">
+                                <input type="password" placeholder="Password">
+                                <input type="date" placeholder="DOB">
+                                <input type="text" placeholder="Address">
+                                <input type="text" placeholder="Zip Postal">
+                                <input type="number" placeholder="ID Number">
+                                <input type="text" placeholder="About Me">
+                                <button id="profile-button">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----------------- END OF MIDDLE -------------------->
+            </div>
+        </div>
+    </main>
+
+    <!----------------- THEME CUSTOMIZATION -------------------->
+    <div class="customize-theme">
+        <div class="card">
+            <h2>Customize your view</h2>
+            <p class="text-muted">Manage your font size, color, and background</p>
+
+            <!----------- FONT SIZE ----------->
+            <div class="font-size">
+                <h4>Font Size</h4>
+                <div>
+                    <h6>Aa</h6>
+                    <div class="choose-size">
+                        <span class="font-size-1"></span>
+                        <span class="font-size-2 active"></span>
+                        <span class="font-size-3"></span>
+                        <span class="font-size-4"></span>
+                        <span class="font-size-5"></span>
+                    </div>
+                    <h3>Aa</h3>
+                </div>
+            </div>
+
+            <!----------- PRIMARY COLORS ----------->
+            <div class="color">
+                <h4>Color</h4>
+                <div class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+
+            <!----------- BACKGROUND COLORS ----------->
+            <div class="background">
+                <h4>Background</h4>
+                <div class="choose-bg">
+                    <div class="bg-1 active">
+                        <span></span>
+                        <h5 for="bg-1">Light</h5>
+                    </div>
+                    <div class="bg-2">
+                        <span></span>
+                        <h5 for="bg-2">Dim</h5>
+                    </div>
+                    <div class="bg-3">
+                        <span></span>
+                        <h5 for="bg-3">Dark</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+    <script src="./profile.js"></script>
+</body>
+<!--<body class="background-container">
+    <main>
+        <div class="container">
+            <div class="profile">
+                <div class="profile-info toper">
+                    <div class="profile-photo">
+                        <img src="~/Content/images/dog2.jpg" alt="Profil Resmi">
+                    </div>
+                    <div class="profile-details">
+                        <h1>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h1>
+                        <p>Email: @Html.Label(Convert.ToString(Session["EMail"]), Convert.ToString(Session["EMail"]))</p>
+                        <p>Phone: @Html.Label(Convert.ToString(Session["Phone"]), Convert.ToString(Session["Phone"]))</p>
+                        <p>Address: @Html.Label(Convert.ToString(Session["Address"]), Convert.ToString(Session["Address"]))</p>
+                    </div>
+                </div>
+                <div>
+                    <ul id="achievements">
+                    </ul>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Owner Name</th>
+                            <th scope="col">Pet Name</th>
+                            <th scope="col">Walk Date</th>
+                            <th scope="col">Walk Length</th>
+                            <th scope="col">Walk Price</th>
+                            <th scope="col">Walk Rate</th>
+                            <th scope="col">Walk Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody class="WhereWeBegin">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+</body>-->
+
+</html>
+<script src="/Scripts/profile.js"></script>
+<script src="/Scripts/index.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: 'GetAchievements',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(),
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#achievements').append('<li>');
+                    var AchievementName = $(' <img></img>').attr("src", "../Content/images/Achievements/" + data[i] + ".png").attr("style", "width:100px; height:100px;");
+                    $('#achievements').append(AchievementName);
+                    var AchievementText;
+                    if (data[i] == 1) {
+                        AchievementText = "  My First Walk!"
+                    }
+                    else if (data[i] == 2) {
+                        AchievementText = "  My 10th Walk"
+                    }
+                    else if (data[i] == 3) {
+                        AchievementText = "  Im so good at this!"
+                    }
+                    else if (data[i] == 4) {
+                        AchievementText = "  My first rate!"
+                    }
+                    else {
+                        AchievementText = ""
+                    }
+                    $('#achievements').append(AchievementText);
+                    $('#achievements').append('</li>');
+                }
+            },
+            error: function (data) {
+                alert("Data Getirilemedi")
+            }
+        });//get achievements
+        $.ajax({
+            type: "POST",
+            url: 'GetRating',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var loopCount = data.length / 7;
+                for (var z = 0; z < loopCount; z++) {
+                    $('.WhereWeBegin').append($('<tr>'));
+                    var CustomerName = $('<td></td>').html(data[z * 7]).show(300);
+                    var PetName = $('<td></td>').html(data[z * 7 + 1]).show(300);
+                    var WalkDate = $('<td></td>').html(data[z * 7 + 2]).show(300);
+                    var WalkLength = $('<td></td>').html(data[z * 7 + 3] + " Minutes");
+                    var Price = $('<td></td>').html("₺ " + data[z * 7 + 4]).show(300);
+                    var WalkRate = $('<td></td>').html("★ " + data[z * 7 + 5]).show(300);
+                    var WalkComment = $('<td></td>').html(data[z * 7 + 6]).show(300);
+                    $('.WhereWeBegin').last().append(CustomerName);
+                    $('.WhereWeBegin').last().append(PetName);
+                    $('.WhereWeBegin').last().append(WalkDate);
+                    $('.WhereWeBegin').last().append(WalkLength);
+                    $('.WhereWeBegin').last().append(Price);
+                    $('.WhereWeBegin').last().append(WalkRate);
+                    $('.WhereWeBegin').last().append(WalkComment);
+                    $('.WhereWeBegin').append($('</tr>'));
+                }
+            }
+        });//get ratings
+        $.ajax({
+            type: "POST",
+            url: 'WalkerConditioner',
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+            }
+        });//update achievements and rating, experience
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            $.ajax({
+                type: "POST",
+                url: 'SendGPS',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ latitude: latitude, longitude: longitude }),
+                success: function (data) {
+                },
+            });
+        },
+        );
+    });
+
+
+</script>

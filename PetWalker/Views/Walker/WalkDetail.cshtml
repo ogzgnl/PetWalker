@@ -1,0 +1,344 @@
+﻿@model List<PetWalker.Models.Walk>
+@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var Walker = "Not Logged";
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<style>
+    .table tr {
+        background-color: white
+    }
+
+    .table {
+        background-color: var(--color-secondary);
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 2px;
+    }
+
+        .table th, .table td {
+            border: 1px solid #F0EEF6;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: white;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table a {
+            padding: 15px;
+            text-decoration: none;
+            display: flex; /* Use flexbox to center the text */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100%; /* Ensure the link takes up the full height of the cell */
+            width: 100%; /* Ensure the link takes up the full width of the cell */
+        }
+
+
+    /* Popup genel stili */
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    /* Popup içeriği stili */
+    .add-pet-popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 80%;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    /* Kapatma butonu stili */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Modal başlık stili */
+
+
+    /* Form alanları stili */
+    .mb-3 {
+        padding: 5px;
+    }
+
+    /* Onay butonu stili */
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Contact</title>
+    <!-- IconScout CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+</head>
+
+<body>
+
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                <a class="profile" href="/User/UserProfile">
+                    <div id="profile-photo-index">
+                        <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                    </div>
+                    <div class="handle">
+                        <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                        <p class="text-muted">
+                            #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                        </p>
+                    </div>
+                </a>
+
+                <!----------------- SIDEBAR -------------------->
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item active">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item active">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+            <!----------------- END OF LEFT -------------------->
+            <!----------------- MIDDLE -------------------->
+            <div class="middle">
+                <div>
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th scope="col">GPS</th>
+                                <th scope="col">Pet Name</th>
+                                <th scope="col">Walker Name</th>
+                                <th scope="col">Walk Time</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Complete? </th>
+                                <th scope="col"> </th>
+                            </tr>
+                        </thead>
+                        <tbody class="WhereWeBegin">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="popup" id="popup">
+                    <div style="margin: 10% auto;" class="add-pet-popup-content">
+                        <span class="close" onclick="PopupToggler()">&times;</span>
+                        <div class="add-pet-form">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Rate the Walk!</h3>
+                                <hr />
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3" style="padding: 5px;">
+                                    <label for="exampleFormControlInput1" class="form-label">Your Comment</label>
+                                    <input placeholder="Enter your comment" id="Comment" class="input-group">
+                                </div>
+                                <div class="mb-3" style="padding: 5px;">
+                                    <label for="exampleFormControlInput1" class="form-label">Rating</label>
+                                    <select id="Rate" class="form-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" onclick="SendComment()" class="btn btn-secondary">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!----------------- END OF MIDDLE -------------------->
+            <!----------------- RIGHT -------------------->
+            <div class="right">
+            </div>
+
+            <!----------------- END OF RIGHT -------------------->
+        </div>
+    </main>
+    
+</body>
+
+</html>
+
+<script src="/Scripts/index.js"></script>
+<script>
+    var walkID;
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: 'GetWalk',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var loopCount = data.length / 8;
+                for (var z = 0; z < loopCount; z++) {
+                    $('.WhereWeBegin').append($('<tr>'));
+                    var LinkForMap = $('<a>Link</a>').attr('href', 'https://www.google.com/maps/place/' + (data[z * 8]));
+                    var PetName = $('<td></td>').html(data[z * 8 + 1]).show(300);
+                    var WalkerName = $('<td></td>').html(data[z * 8 + 2]).show(300);
+                    var WalkLength = $('<td></td>').html(data[z * 8 + 3]).show(300);
+                    var WalkPrice = $('<td></td>').html(data[z * 8 + 4]).show(300);
+                    var WalkDate = $('<td></td>').html(data[z * 8 + 5]).show(300);
+                    var IsCompleted = $('<td></td>').html(data[z * 8 + 6]).show(300);
+                    var Button = $('<td><button class="btn btn-primary" onclick="RateButton(' + data[z * 8 + 7] + ');">Rate IT!</button></td>');
+                    $('.WhereWeBegin').last().append(LinkForMap);
+                    $('.WhereWeBegin').last().append(PetName);
+                    $('.WhereWeBegin').last().append(WalkerName);
+                    $('.WhereWeBegin').last().append(WalkLength);
+                    $('.WhereWeBegin').last().append(WalkPrice);
+                    $('.WhereWeBegin').last().append(WalkDate);
+                    $('.WhereWeBegin').last().append(IsCompleted);
+
+
+
+                    if (data[z * 8 + 6] == "Completed") {
+                        $('.WhereWeBegin').last().append(Button);
+                    }
+                    $('.WhereWeBegin').append($('</tr>'));
+                }
+            }
+        });
+    });
+    function RateButton(k) {
+        walkID = k;
+        openPopup()
+    };
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+    function SendComment() {
+        var Comments = $('#Comment').val();
+        var Rate = $('#Rate').val();
+        $.ajax({
+            type: "POST",
+            url: 'SendRating',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ WalkID: walkID, Comments: Comments, Rate: Rate }),
+            success: function (data) {
+                alert("Rating and Comment sended to user profile.")
+                location.reload();
+                closePopup()
+            },
+            error: function (data) {
+                alert("Something wrong happened :(")
+                closePopup()
+            }
+        });
+    }
+    function PopupToggler() {
+        var x = document.getElementById("popup");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

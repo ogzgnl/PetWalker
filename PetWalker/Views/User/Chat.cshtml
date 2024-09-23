@@ -1,0 +1,405 @@
+@model PetWalker.Controllers.UserController.CombinedViewModel
+@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var Walker = "Not Logged";
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+    var SkipList = new List<String>();
+
+}
+
+<style>
+    .left-messages .people::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center; /* Butonu yatay olarak ortalar */
+        width: 100%; /* Kapsayıcı genişliğine yayılır */
+    }
+
+    .expanded-button {
+        flex-grow: 1; /* Butonun kapsayıcı içindeki boş alanı kaplamasını sağlar */
+        margin: 0 10px; /* Butonun yanlarına boşluk ekler */
+        padding: 10px; /* İçerik çevresinde boşluk bırakır */
+        box-sizing: border-box; /* Padding ve border dahil genişlik hesaplar */
+    }
+
+    .form-textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical; /* Kullanıcıların dikey olarak yeniden boyutlandırmasına izin verir */
+    }
+
+    #Confirm {
+        margin-top: 1rem;
+        padding: 10px;
+        background-color: #6B4DE6;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        #Confirm:hover {
+            opacity: 80%;
+        }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <!-- IconScout CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+
+</head>
+<body>
+
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                @if (Walker == "yes")
+                {
+                    <a class="profile" href="/Walker/WalkerProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a class="profile" href="/User/UserProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+
+                <!----------------- SIDEBAR -------------------->
+
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item active" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item active" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+            <div class="middle">
+                <!----------------- LEFT -------------------->
+                <div class="left-messages">
+                    <div class="top">
+
+                    </div>
+
+                    <ul class="people">
+                        @foreach (var item in Model.Messages.AsEnumerable().Reverse())
+                        {
+                            var ID = Convert.ToInt32(Session["ID"]);
+                            if (SkipList.Contains(item.MessageSenderID.ToString()) || (SkipList.Contains(item.MessageReceiverID.ToString())))
+                            {
+                            }
+                            else
+                            {
+                                if (item.MessageReceiverID != ID)
+                                {
+                                    <li class="person" data-chat="person1" onclick="GetMessagesBatch(@Html.DisplayFor(modelItem => item.MessageReceiverID))">
+                                        <img src="/Content/images/ProfilePhotos/@Html.DisplayFor(modelItem => item.MessageReceiverID)@Extension" alt="" />
+                                        <span class="name">@Html.DisplayFor(modelItem => item.MessageReceiverNameSurname)</span>
+                                        <span class="time">@Html.DisplayFor(modelItem => item.MessageDate)</span>
+                                        <span class="preview">@Html.DisplayFor(modelItem => item.MessageText)</span>
+                                    </li>
+                                    SkipList.Add(item.MessageReceiverID.ToString());
+                                }
+                                else
+                                {
+                                    <li class="person" data-chat="person1" onclick="GetMessagesBatch(@Html.DisplayFor(modelItem => item.MessageSenderID))">
+                                        <img src="/Content/images/ProfilePhotos/@Html.DisplayFor(modelItem => item.MessageSenderID)@Extension" alt="" />
+                                        <span class="name">@Html.DisplayFor(modelItem => item.MessageSenderNameSurname)</span>
+                                        <span class="time">@Html.DisplayFor(modelItem => item.MessageDate)</span>
+                                        <span class="preview">@Html.DisplayFor(modelItem => item.MessageText)</span>
+                                    </li>
+                                    SkipList.Add(item.MessageSenderID.ToString());
+                                }
+                            }
+                        }
+                    </ul>
+
+                    <div class="top">
+                        <div class="button-container">
+                            <button style="margin-bottom:10px" onclick="PopupToggler()" class="walk-btn expanded-button">
+                                <i class="fa fa-comments"></i>
+                                New Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popup" id="popup">
+                    <div style="margin: 1.5% auto;" class="add-pet-popup-content">
+                        <span class="close" onclick="PopupToggler()">&times;</span>
+                        <div class="add-pet-form">
+                            <h2>New Chat</h2>
+
+                            <div class="mb-3" style="padding: 5px;">
+                                <label for="exampleFormControlInput1" class="form-label">User Name</label><br />
+                                <select id="ReceiverSelect" class="form-select" onclick="GetCustomerID()">
+                                    <option>Please select user!</option>
+                                    @foreach (var item in Model.Walkers)
+                                    {
+                                        <option value="@Html.DisplayFor(modelItem => item.WalkerID)">@Html.DisplayFor(modelItem => item.FName) @Html.DisplayFor(modelItem => item.LName)</option>
+                                    }
+                                    @foreach (var item in Model.Customers)
+                                    {
+                                        <option value="@Html.DisplayFor(modelItem => item.CustomerID)">@Html.DisplayFor(modelItem => item.FName) @Html.DisplayFor(modelItem => item.LName)</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="mb-3" style="padding: 5px;">
+                                <label for="userMessage" class="form-label">Your Message</label><br />
+                                <textarea id="userMessage" class="form-textarea" rows="4" placeholder="Write your message here..."></textarea>
+                            </div>
+
+                            <button id="Confirm" type="submit" onclick="SendMessage()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <!----------------- END OF LEFT -------------------->
+                <!---------------- RIGHT-------------------->
+                <div class="right-messages">
+                    <div class="top"><span>To: <span class="name"></span></span></div>
+                    <div class="chat" data-chat="person1" id="mainChat">
+                        <div class="conversation-start" id="conversation-start">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="write">
+                        <a href="javascript:;" class="write-link attach"></a>
+                        <input type="text" id="MessageBoxText" />
+                        <a href="javascript:;" class="write-link smiley"></a>
+                        <a href="javascript:;" onclick="SendMessageFromBox()" class="write-link send"></a>
+                    </div>
+                </div>
+                <!----------------- END OF RIGHT -------------------->
+            </div>
+        </div>
+
+    </main>
+
+
+</body>
+</html>
+
+<script src="/Scripts/index.js"></script>
+<script>
+
+    var InternalReceiverID;
+    var ClickedMessageBoxID;
+    function GetCustomerID() {
+        InternalReceiverID = $('#ReceiverSelect').val();
+    }
+    function SendMessage() {
+        var Message = $('#userMessage').val();
+        $.ajax({
+            type: "POST",
+            url: '/Home/SendMessage',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Message: Message, InternalReceiverID: InternalReceiverID }),
+            success: function (data) {
+                location.reload();
+/*                alert(data);*/
+            }
+        });
+    }
+    function SendMessageFromBox() {
+        var Message = $('#MessageBoxText').val();
+        $.ajax({
+            type: "POST",
+            url: '/Home/SendMessage',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Message: Message, InternalReceiverID: ClickedMessageBoxID }),
+            success: function (data) {
+                location.reload();
+                /*                alert(data);*/
+            }
+        });
+    }
+    function GetMessagesBatch(ID) {
+        SentID = ID;
+        ClickedMessageBoxID = ID;
+        $.ajax({
+            type: "POST",
+            url: 'GetMessagesBatch',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ SentID: SentID }),
+            success: function (data) {
+                $('.bubble.you').remove();
+                $('.bubble.me').remove();
+                var loopCount = data.length / 3;
+                for (var z = 0; z < loopCount; z++) {
+                    var MessageDate = $('<span></span>').html(data[z * 3 + 1]).show(300);
+                    if (data[z * 3] == "You") {
+                        var TextMessage = $('<div class="bubble you"></div>').html(data[z * 3 + 2]).show(300);
+                    }
+                    else {
+                        var TextMessage = $('<div class="bubble me"></div>').html(data[z * 3 + 2]).show(300);
+                    }
+                    $('#conversation-start').last().html(MessageDate);
+                    $('#mainChat').last().append(TextMessage);
+                }
+/*                alert(data);*/
+            }
+        });
+    }
+    // Define objects to manage friends and chat elements
+    let friends = {
+        list: document.querySelector('ul.people'), // List of all friend elements
+        all: document.querySelectorAll('.left-messages .person'), // All friend elements
+        name: '' // Placeholder for the selected friend's name
+    };
+
+    let chat = {
+        container: document.querySelector('.right-messages'), // Chat container
+        current: null, // Currently active chat
+        person: null, // Currently selected person
+        name: document.querySelector('.right-messages .top .name') // Name display in chat header
+    };
+
+    // Add event listeners to all friends
+    friends.all.forEach(f => {
+        f.addEventListener('mousedown', () => {
+            if (!f.classList.contains('active')) {
+                setActiveChat(f);
+            }
+        });
+    });
+
+    // Function to set the active chat
+    function setActiveChat(f) {
+        // Remove 'active' class from currently active friend
+        const activeFriend = friends.list.querySelector('.active');
+        if (activeFriend) {
+            activeFriend.classList.remove('active');
+        }
+
+        // Add 'active' class to the clicked friend
+        f.classList.add('active');
+
+        // Update the currently active chat
+        chat.current = chat.container.querySelector('.active-chat');
+        chat.person = f.getAttribute('data-chat');
+
+        // Remove 'active-chat' class from current chat and add it to the new one
+        if (chat.current) {
+            chat.current.classList.remove('active-chat');
+        }
+        const newActiveChat = chat.container.querySelector(`[data-chat="${chat.person}"]`);
+        if (newActiveChat) {
+            newActiveChat.classList.add('active-chat');
+        }
+
+        // Update the chat header with the selected friend's name
+        friends.name = f.querySelector('.name').innerText;
+        chat.name.innerHTML = friends.name;
+    }
+
+    // Initialize the first chat as active on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        if (friends.all.length > 0) {
+            setActiveChat(friends.all[0]);
+        }
+    });
+
+    function PopupToggler() {
+        var x = document.getElementById("popup");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+</script>

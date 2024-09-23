@@ -1,0 +1,543 @@
+﻿@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var OriginalID = "null";
+    var Walker = "Not Logged";
+
+    if (Session["DesiredID"] != null)
+    {
+        OriginalID= Session["ID"].ToString();
+        LoggedIn = Session["DesiredID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">*@
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+   
+</head>
+<body>
+
+
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                @if (Walker == "yes")
+                {
+                    <a class="profile" href="/Walker/WalkerProfile">
+                        <div id="profile-photo">
+                            <img style="height:2.7rem;width:2.7rem" src="/Content/images/ProfilePhotos/@OriginalID@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a class="profile" href="/User/UserProfile">
+                        <div id="profile-photo">
+                            <img style="height:2.7rem;width:2.7rem" src="/Content/images/ProfilePhotos/@OriginalID@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+
+
+                <!----------------- SIDEBAR -------------------->
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item active">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item active">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+            <!----------------- END OF LEFT -------------------->
+            <!----------------- MIDDLE -------------------->
+            <div class="middle">
+                <div id="profile-page">
+                    <div id="profile-container">
+                        <div id="profile-header">
+                            <div id="profile-photo">
+                                <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                            </div>
+                            <div id="profile-stats">
+                                <h1 id="username">@Html.Label(Convert.ToString(Session["VisitorFName"]), Convert.ToString(Session["VisitorFName"])) @Html.Label(Convert.ToString(Session["VisitorLName"]), Convert.ToString(Session["VisitorLName"]))</h1>
+                                <p id="is-walker"></p><!-- Normal user ise boş olucak walker ise walker yazıcak-->
+                                <div id="stats">
+                                    <div class="stat">
+                                        <span class="count" id="PostCount">150</span>
+                                        <span class="label">Posts</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="count" id="FollowerCount">2000</span>
+                                        <span class="label">Following</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="count" id="FollowingCount">180</span>
+                                        <span class="label">Followers</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="profile-buttons">
+
+                                <button id="profile-button" onclick="Follow()">Follow</button>
+                                <a href="/User/Chat"><button id="profile-button">Message</button></a>
+                            </div>
+                        </div>
+                        <div id="profile-info">                            
+                            <p>
+                                About Me: @Html.Label(Convert.ToString(Session["VisitorAboutMe"]), Convert.ToString(Session["VisitorAboutMe"]))
+                            </p>
+                            <p>
+                                EMail: @Html.Label(Convert.ToString(Session["VisitorEMail"]), Convert.ToString(Session["VisitorEMail"]))
+                            </p>
+                            <p>
+                                Phone: @Html.Label(Convert.ToString(Session["VisitorPhone"]), Convert.ToString(Session["VisitorPhone"]))
+                            </p>
+                            <p>
+                                Date of Birth:  @Html.Label(Convert.ToString(Session["VisitorDOB"]), Convert.ToString(Session["VisitorDOB"]))
+                            </p>
+                            <p>
+                                Address: @Html.Label(Convert.ToString(Session["VisitorAddress"]), Convert.ToString(Session["VisitorAddress"]))
+                            </p>
+                            <p>
+                                Zip Postal: @Html.Label(Convert.ToString(Session["VisitorZipPostal"]), Convert.ToString(Session["VisitorZipPostal"]))
+                            </p>
+
+                        </div>
+                    </div>               
+                <div class="profile-nav-container">
+                    <div class="nav-item active">
+                        <button onclick="showSection('posts')">
+                            <span class="icon">⬛</span>
+                            <span class="label">POSTS</span>
+                        </button>
+                    </div>
+
+
+                    <div class="nav-item">
+                        <button onclick="showSection('pets')">
+                            <span class="icon">🐾</span>
+                            <span class="label">PETS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="posts" class="content-section">
+                    <div id="post-container">                                               
+                    </div>
+                </div>
+
+            
+                <div id="pets" class="content-section">
+                    <div class="post-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
+                    </div>
+                </div>
+
+                <!---Post Details Popup --->
+                <div id="post-popup" class="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <div class="popup-left">
+                            <img src="/Content/images/demo-images/feed-5.jpg" alt="Popup Content">
+                        </div>
+                        <div class="popup-right">
+                            <div class="popup-header">
+                                <a href="#" class="popup-username">@@NiaRidania</a>
+                                <button id="profile-button">Follow</button>
+                                <button id="profile-button">Unfollow</button>
+
+                            </div>
+                            <div class="popup-comments">
+                                <p><a onclick="closePopup()" href="profile-owner.html" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                                <p><a href="#" class="commentator">@@commentator1</a> Comment 1</p>
+                                <p><a href="#" class="commentator">@@commentator2</a> Comment 2</p>
+                            </div>
+                            <div class="popup-actions">
+                                <button class="like-button"><i class="uil uil-thumbs-up"></i></button>
+                                <button class="save-button"><i class="uil uil-bookmark"></i></button>
+                            </div>
+                            <div class="popup-info">
+                                <p>23,590 likes</p>
+                                <p>Published on May 3rd</p>
+                            </div>
+                            <div class="popup-comment-box">
+                                <input type="text" placeholder="Add a comment...">
+                                <button id="profile-button">comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---Pet Add Popup--->
+                <div id="add-pet-popup" class="popup">
+                    <div class="add-pet-popup-content">
+                        <span class="close" onclick="closeAddPetPopup()">&times;</span>
+                        <div class="add-pet-form">
+                            <h2>Add New Pet</h2>
+                            <div class="image-container">
+                                <img id="image-preview" class="image-preview" src="/Content/images/demo-images/pet-blank.jpeg" alt="Pet Image" onclick="document.getElementById('pet-image').click()">
+                                <input type="file" id="pet-image" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                            </div>
+                            <input type="text" placeholder="Pet Name">
+                            <input type="number" placeholder="Age">
+                            <input type="text" placeholder="Breed">
+                            <input type="text" placeholder="Type">
+                            <button id="profile-button">Add Pet</button>
+                        </div>
+                    </div>
+                </div>
+                <!---Edit Profile Popup--->
+                <div id="edit-profile-popup" class="popup">
+                    <div style="margin: 1.5% auto;" class="add-pet-popup-content">
+                        <span class="close" onclick="closeEditProfilePopup()">&times;</span>
+                        <div class="add-pet-form">
+                            <h2>Edit Profile</h2>
+                            <div class="image-container">
+                                <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                                <input type="file" id="pictureUpload" name="filename">
+                            </div>
+                            <input type="text" placeholder="First Name" id="FName">
+                            <input type="text" placeholder="Last Name" id="LName">
+                            <input type="text" placeholder="E-mail" id="EMail">
+                            <input type="number" placeholder="Phone" id="Phone">
+                            <input type="password" placeholder="Password" id="Password">
+                            <input type="date" placeholder="DOB" id="DOB">
+                            <input type="text" placeholder="Address" id="Address">
+                            <input type="text" placeholder="Zip Postal" id="Zip">
+                            <input type="number" placeholder="ID Number" id="IDNumber">
+                            <input type="text" placeholder="About Me">
+                            <button id="profile-button" onclick="UpdateProfile()">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+                <!----------------- END OF MIDDLE -------------------->
+                <!----------------- RIGHT -------------------->
+                <div class="right">
+                </div>
+            </div>
+            <!----------------- END OF RIGHT -------------------->
+        </div>
+    </main>
+    <!----------------- THEME CUSTOMIZATION -------------------->
+    <div class="customize-theme">
+        <div class="card">
+            <h2>Customize your view</h2>
+            <p class="text-muted">Manage your font size, color, and background</p>
+
+            <!----------- FONT SIZE ----------->
+            <div class="font-size">
+                <h4>Font Size</h4>
+                <div>
+                    <h6>Aa</h6>
+                    <div class="choose-size">
+                        <span class="font-size-1"></span>
+                        <span class="font-size-2 active"></span>
+                        <span class="font-size-3"></span>
+                        <span class="font-size-4"></span>
+                        <span class="font-size-5"></span>
+                    </div>
+                    <h3>Aa</h3>
+                </div>
+            </div>
+
+            <!----------- PRIMARY COLORS ----------->
+            <div class="color">
+                <h4>Color</h4>
+                <div class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+
+            <!----------- BACKGROUND COLORS ----------->
+            <div class="background">
+                <h4>Background</h4>
+                <div class="choose-bg">
+                    <div class="bg-1 active">
+                        <span></span>
+                        <h5 for="bg-1">Light</h5>
+                    </div>
+                    <div class="bg-2">
+                        <span></span>
+                        <h5 for="bg-2">Dim</h5>
+                    </div>
+                    <div class="bg-3">
+                        <span></span>
+                        <h5 for="bg-3">Dark</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<script src="/Scripts/profile.js"></script>
+<script src="/Scripts/index.js"></script>
+<script>
+    $(document).ready(function () {
+        GetPost();
+        GetPet();
+
+        $.ajax({
+            type: "POST",
+            url: 'GetPostCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#PostCount').text(data);
+            }
+        });
+        $.ajax({ //gets post count
+            type: "POST",
+            url: 'GetFollowCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#FollowingCount').text(data);
+            }
+        });
+        $.ajax({ //gets post count
+            type: "POST",
+            url: 'GetFollowerCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#FollowerCount').text(data);
+            }
+        });
+        $('.profile-details4Edit').hide();
+    }
+    );
+    function ToggleProfile() {
+        $('.profile-details4Edit').toggle(300);
+        $('.profile-details').toggle(300);
+    }
+    function GetPost() {
+        $.ajax({
+            type: "POST",
+            url: 'GetPosts',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                for (var z = 0; z < data.length; z++) {
+                    var PostOpen = $('<div class="post">');
+                    var ImageLink = $('<img class="post-image" src="/Content/Images/Posts/' + data[z] + '.png"">').html(data[z]).show(300);
+                    $('#post-container').append(PostOpen);
+                    $(PostOpen).append(ImageLink);;
+                }
+            }
+        });
+    }
+    function GetPet() {
+        $.ajax({
+            type: "POST",
+            url: 'GetPet',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var loopCount = data.length / 6;
+                for (var z = 0; z < loopCount; z++) {
+                    var Header = $('<div class="pet-container">');
+                    var PetPhoto = $('<img src="/Content/Images/Pets/' + data[z * 6] + '.png">').html(data[z * 6]).show(300);
+                    var PetInfo = $('<div class="pet-info">');
+                    var PetName = $('<p></p>').html("Pet Name: " + data[z * 6 + 1]).show(300);
+                    var PetWeight = $('<p></p>').html("Pet Weight: " + data[z * 6 + 2]).show(300);
+                    var PetAge = $('<p></p>').html("Pet Age: " + data[z * 6 + 3]).show(300);
+                    var PetBreed = $('<p></p>').html("Pet Braid:" + data[z * 6 + 4]).show(300);
+                    var PetColor = $('<p></p>').html("Pet Color:" + data[z * 6 + 5]).show(300);
+                    Header.append(PetPhoto);
+                    Header.append(PetInfo);
+                    PetInfo.append(PetName, PetWeight, PetAge, PetBreed, PetColor);
+                    $('.post-container:last').last().append(Header);
+
+                }
+            }
+        });
+    }
+    function UpdateProfile() {
+
+        var formData = new FormData();
+        var totalFiles = document.getElementById("pictureUpload").files.length;
+        for (var i = 0; i < totalFiles; i++)
+            var file = document.getElementById("pictureUpload").files[i];
+        formData.append("pictureUpload", file);
+        if (totalFiles > 0) {
+            $.ajax({
+                type: "POST",
+                url: 'ProfilePhotoUpdate',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+            })
+                .done(function () {
+                    alert("Profil fotoğrafı yüklendi.");
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert("Bir hata oluştu.");
+                })
+
+        }
+        var IDNumber = NullToEmpty($('#IDNumber').val());
+        var FName = NullToEmpty($('#FName').val());
+        var LName = NullToEmpty($('#LName').val());
+        var EMail = NullToEmpty($('#EMail').val());
+        var Phone = NullToEmpty($('#Phone').val());
+        var Password = NullToEmpty($('#Password').val());
+        var DOB = NullToEmpty($('#DOB').val());
+        var Address = NullToEmpty($('#Address').val());
+        var ZipPostal = NullToEmpty($('#Zip').val());
+        $.ajax({
+            type: "POST",
+            url: 'UpdateProfile',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ FName: FName, LName: LName, EMail: EMail, Phone: Phone, Password: Password, DOB: DOB, Address: Address, ZipPostal: ZipPostal, IDNumber: IDNumber }),
+            success: function (data) {
+                alert("Profile updated")
+                window.location.href = '../User/LogOut';
+            },
+            error: function (data) {
+                alert("Something wrong happened, sorry.")
+            }
+        });
+    }
+    function NullToEmpty(check) {
+        if ((check == "") || (check == null)) {
+            return " ";
+        }
+        else {
+            return check;
+        }
+    }
+    // Show the POSTS section by default
+    function Follow() {
+        $.ajax({
+            type: "POST",
+            url: 'Follow',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    }
+    showSection('posts');
+
+    function openPostPopup() {
+        document.getElementById('post-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('post-popup').style.display = 'none';
+    }
+
+    function openAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'block';
+    }
+
+    function closeAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'none';
+    }
+    function openEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'block';
+    }
+
+    function closeEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'none';
+    }
+
+    function openWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'block';
+    }
+
+    function closeWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'none';
+    }
+</script>

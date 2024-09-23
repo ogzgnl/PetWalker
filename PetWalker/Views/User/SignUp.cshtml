@@ -1,0 +1,566 @@
+﻿@{
+    Layout = "";
+}
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+#signUpBody {
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    /* height: 100vh; */
+    margin: 50px 0 50px 0;
+}
+
+h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+p {
+    font-size: 15px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 15px;
+}
+
+a {
+    color: #333;
+    font-size: 15px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+    background: transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    height: 800px;
+
+}
+
+.website-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    width: 50%;
+    max-height: 800px;
+
+}
+
+
+.website-info .icon img {
+    width: 100px;
+    height: 100px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    position: relative;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 30px rgb(107, 77, 230);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 680px;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+}
+
+.form-container input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 90%;
+}
+
+.sign-in-container i {
+    color: black;
+    position: relative;
+    left: 35%;
+    top: 35px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #6B4DE6;
+    background-color: #6B4DE6;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+    border-radius: 150px 0 0 100px;
+}
+
+.overlay {
+    background: #C96F8F;
+    background: -webkit-linear-gradient(to right, #6B4DE6, #C96F8F);
+    background: linear-gradient(to right, #6B4DE6, #C96F8F);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+/* ANIMATIONS */
+
+/* Move sign in to the right  */
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+/* Move overlay to the left */
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+/* Bring sign up above the sign in */
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+/* Move overlay back to right */
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+.input-rounded {
+    border-radius: 20px;
+}
+
+
+.title{
+	display: flex;
+	flex-direction: row;
+}
+.title .title-text{
+	left:0;
+	font-size: 80px;
+	margin-right: 20px;
+	background: linear-gradient(to right, #6B4DE6, #C96F8F);
+  	background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+.title .title-text i{
+	font-size: 80px;
+	margin-right: 20px;
+}
+
+
+.grid-container {
+	justify-content: center;
+	align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+	width:100%;
+    margin:0 auto;
+    column-gap: 20px; /* Grid öğeleri arasında 10px boşluk bırak */
+
+}
+
+.grid-item {
+	width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    border-radius:10%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    flex-shrink: 1;
+
+}
+
+.grid-item img {
+    width:50%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.sub-info {
+overflow-y: scroll;
+margin:0 auto;
+}
+
+.sub-info::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+
+
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous"
+    />-->
+    <!-- fontawesome cdn  içinde bütün ikonlarının css dosyalşarı içinde all min.css te.
+    "fab fa-facebook" gibi classlarımı kullanmak için.-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <title>Sign Up | Log In</title>
+
+</head>
+<body id="signUpBody">
+    <div class="main-container">
+        <div class="website-info">
+            <div class="title">
+                <h1 class="title-text"><span><i id="app-icon" class=" fa fa-paw"></i></span>Pet Contact</h1>
+            </div>
+
+            <p style="font-size:20px; width:90%; line-height:30px; margin-left:3%">
+                On Pet Contact, which is the meeting point of pet owners, 
+                you can introduce your lovely friends, meet other pet owners and share your experiences.
+                Additionally, you can meet the needs of your pets with our reliable and professional pet walking service.
+            </p>
+
+            <div class="sub-info">
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <img src="/Content/images/SocialImg.png" alt="Image 1">
+                        <p>You can like posts from others and save your favorites.</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="/Content/images/walking-the-dog.png" alt="Image 2">
+                        <p>Your Lovely Friends are Happy with our Pet Walking Service!</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="~/Content/images/push-notification.png" alt="Image 3">
+                        <p>You can meet new paw friends and make new friendships."</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="/Content/images/conversation.png" alt="Image 4">
+                        <p>Messaging with those you interact with</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="/Content/images/choosing.png" alt="Image 1">
+                        <p>Your pet is safe with the right caregiver on demand!</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="/Content/images/posting.png" alt="Image 2">
+                        <p>Share daily moments in your profile and see the memories shared by your paw friends. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Create Account</h1>
+            <input type="text" placeholder=" Name" id="FName" class="input-rounded" />
+            <input type="text" placeholder=" Last Name" id="LName" class="input-rounded" />
+            <input type="email" placeholder="Email" id="EMail" class="input-rounded" />
+            <input type="tel" placeholder="123-45-678" id="Phone" class="input-rounded" />
+            <input type="password" placeholder="Password" id="Password" class="input-rounded" />
+            <input type="date" name="birthday" id="DOB" class="input-rounded" />
+            <input type="text" placeholder="Address" id="Address" class="input-rounded" />
+            <input type="text" placeholder="Zip Code" id="Zip" class="input-rounded" />
+            <input type="checkbox" id="IsWalker">
+            <button onclick="signUp()">Sign Up</button>
+        </form>
+
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="#">
+            <h1>Sign in</h1>
+            <i class='bx bxs-user'></i>
+            <input type="email" placeholder="Email" id="EMailForLogin" class="input-rounded" />
+
+            <i class='bx bxs-lock-alt'></i>
+            <input type="password" placeholder="Password" id="PasswordForLogin" class="input-rounded" />
+
+            <a href="/Home/ForgetPassword">Forgot your password?</a>
+            <button onclick="LoginCheck()">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>  
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</body>
+
+
+@*<body id="signUpBody">
+    <div class="container" id="container" style="margin-left: 50% !important;">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1>
+                <input type="text" placeholder=" Name" id="FName" class="input-rounded" />
+                <input type="text" placeholder=" Last Name" id="LName" class="input-rounded" />
+                <input type="email" placeholder="Email" id="EMail" class="input-rounded" />
+                <input type="tel" placeholder="123-45-678" id="Phone" class="input-rounded" />
+                <input type="password" placeholder="Password" id="Password" class="input-rounded" />
+                <input type="date" name="birthday" id="DOB" class="input-rounded" />
+                <input type="text" placeholder="Address" id="Address" class="input-rounded" />
+                <input type="text" placeholder="Zip Code" id="Zip" class="input-rounded" />
+                <button onclick="signUp()">Sign Up</button>
+            </form>
+
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1>
+                <i class='bx bxs-user'></i>
+                <input type="email" placeholder="Email" id="EMailForLogin" class="input-rounded" />
+
+                <i class='bx bxs-lock-alt'></i>
+                <input type="password" placeholder="Password" id="PasswordForLogin" class="input-rounded" />
+
+                <a href="../forgotPassword/forgotPassword.html">Forgot your password?</a>
+                <button onclick="LoginCheck()">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>  
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>*@
+
+</html>
+<script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: 'LoginCheck',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({}),
+            success: function (data) {
+            },
+        });
+    });
+    function LoginCheck() {
+        if (($('#EMailForLogin').val().length > 0) && ($('#PasswordForLogin').val().length > 0)) {
+            var EMail = $('#EMailForLogin').val();
+            var Password = $('#PasswordForLogin').val();
+            $.ajax({
+                type: "POST",
+                url: 'LoginCheck',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ EMail: EMail, Password: Password }),
+                success: function (data) {
+                    if (data == "False") {
+                        alert("Please check the credentials.")
+                    }
+                    else {
+                        alert("Welcome, redirecting to homepage..")
+                        window.location.href = '../Home/Index';
+                    }
+                },
+            });
+        }
+        else {
+            alert(($('#EMail').val()));
+            alert("Please fill all of the areas.");
+        }
+    }
+    signUpButton.addEventListener('click', () =>
+        container.classList.add("right-panel-active")
+    );
+
+    signInButton.addEventListener('click', () =>
+        container.classList.remove("right-panel-active")
+    );
+    function hasNumber(str) {
+        return /\d/.test(str);
+    }
+
+    function signUp() {
+        if (($('#FName').val().length > 0) && ($('#LName').val().length > 0) && ($('#EMail').val().length > 0) && ($('#Phone').val().length > 0) && ($('#Password').val().length > 0) && ($('#DOB').val().length > 0) && ($('#Address').val().length > 0) && ($('#Zip').val().length > 0)) {
+            if ($('#IsWalker').is(":checked")) {
+                IsWalker = "on"
+            }
+            else {
+                IsWalker = "false"
+            }
+            var IDNumber = $('#IDNumber').val();
+            var FName = $('#FName').val();
+            var LName = $('#LName').val();
+            if (hasNumber(FName) || hasNumber(LName)) {
+                alert("Only text allowed in name and surname")
+                return false;
+            }
+            var EMail = $('#EMail').val();
+            var Phone = $('#Phone').val();
+            if ((Phone.length < 10) || (Phone.length > 10)) { alert("Phone number should contain 10 digit."); return false; }
+            var Password = $('#Password').val();
+            if (Password.length < 8) { alert("Minimum 8 digit, 1 Capital letter and 1 letter required for password"); return false; }
+            var DOB = $('#DOB').val();
+            var Address = $('#Address').val();
+            var ZipPostal = $('#Zip').val();
+            $.ajax({
+                type: "POST",
+                url: 'UserCreater',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ FName: FName, LName: LName, EMail: EMail, Phone: Phone, Password: Password, DOB: DOB, Address: Address, ZipPostal: ZipPostal, IsWalker: IsWalker, IDNumber: IDNumber }),
+                success: function (data) {
+                    alert("User created, please login")
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("User not created")
+                }
+            });
+        }
+        else {
+            alert("Please fill all of the areas")
+        }
+    }
+</script>

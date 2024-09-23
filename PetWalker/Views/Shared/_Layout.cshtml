@@ -1,0 +1,69 @@
+﻿@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var Walker = "Not Logged";
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Contact</title>
+    <!-- IconScout CDN -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+</head>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <!--<header class="EditNavbar ">-->
+    <!--navbar section -->
+    <nav>
+        <div class="container">
+            <a class="nav-heading" id="nav-heading" href="~/Home/Index" flex>
+                <span><i style="margin-top:5px" id="app-icon" class=" fa fa-paw"></i></span>
+                <h2>Pet Contact</h2>
+            </a>
+            <div class="create">
+                @if (Walker == "yes")
+                {
+                    <div id="profile-photo-index">
+                        <a href="~/Walker/WalkerProfile">
+                            <img  src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div id="profile-photo-index">
+                        <a href="~/User/UserProfile">
+                            <img  src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                        </a>
+                    </div>
+                }
+                <a style="color:white;background-color: red; padding-right: 10px; padding-left: 10px" class="btn btn-primary" href="/User/LogOut" for="create-post"><i style="font-size:20px;" class="uil-exit"></i>Logout</a>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+    @RenderBody()
+</body>
+</html>

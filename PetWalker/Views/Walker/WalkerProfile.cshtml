@@ -1,0 +1,393 @@
+﻿@model List<PetWalker.Models.Walker>
+@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var Walker = "Not Logged";
+    Session["VisitorID"] = null;
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<style>
+.post{
+    background-color:white;
+    padding:20px;
+    border-radius:5%;
+}
+    .add-pet-popup-content {
+        overflow-y: scroll;
+        max-height: 90%;
+    }
+
+        .add-pet-popup-content::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Contact</title>
+    <!-- IconScout CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+</head>
+
+<body>
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                @if (Walker == "yes")
+                {
+                    <a class="profile" href="/Walker/WalkerProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a class="profile" href="/User/UserProfile">
+                        <div id="profile-photo-index">
+                            <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                        </div>
+                        <div class="handle">
+                            <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                            <p class="text-muted">
+                                #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                            </p>
+                        </div>
+                    </a>
+                }
+
+                <!----------------- SIDEBAR -------------------->
+
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item active" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item active">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+            <!----------------- END OF LEFT -------------------->
+            <!----------------- MIDDLE -------------------->
+            @foreach (var item in Model)
+            {
+                <div class="middle">
+                    <div id="profile-page">
+                        <div id="profile-container">
+                            <div id="profile-header">
+                                <div id="profile-photo">
+                                    <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                                </div>
+                                <div id="profile-stats">
+                                    <h1 id="username">@Html.DisplayFor(modelItem => item.FName)@Html.DisplayFor(modelItem => item.LName)</h1>
+                                    <div class="stats">
+                                        <p id="services">
+                                            <b>Walker Rate:</b> @Html.DisplayFor(modelItem => item.Rating)⭐
+                                        </p>
+                                        <p id="services">
+                                            <b>Walk Count:</b> @Html.DisplayFor(modelItem => item.Experience)
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="profile-buttons">
+                                    <button onclick="openEditWalkerProfilePopup()" id="profile-button">Edit Profile</button>
+                                </div>
+                            </div>
+                            <div id="profile-info">
+                                <p>
+                                    <b>About Me:</b>@Html.DisplayFor(modelItem => item.AboutMe)
+                                </p>
+
+                                <p id="services">
+                                    <b>Adress:</b>@Html.DisplayFor(modelItem => item.Address)
+                                </p>
+                                <p id="services">
+                                    <b>Phone:</b> @Html.DisplayFor(modelItem => item.Phone)
+                                </p>
+                                <p id="services">
+                                    <b>E-mail:</b> @Html.DisplayFor(modelItem => item.EMail)
+                                </p>
+
+                            </div>
+
+                        </div>
+                        <div class="profile-nav-container">
+                            <div class="nav-item active">
+                                <button onclick="showSection('posts')">
+                                    <span class="icon">🏆</span>
+                                    <span class="label">ACHIVEMENTS</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="posts" class="content-section">
+                            <div id="post-container">
+                            </div>
+                        </div>
+
+                        <!---Edit Walker Profile Popup--->
+                        <div id="edit-walker-profile-popup" class="popup">
+                            <div style="margin: 1.5% auto;" class="add-pet-popup-content">
+                                <span class="close" onclick="closeEditWalkerProfilePopup()">&times;</span>
+                                <div class="add-pet-form">
+                                    <h2>Edit Profile</h2>
+                                    <div class="image-container">
+                                        <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                                        <label style="margin-top:10px;padding:10px;" class="btn btn-primary">
+                                            <p>Change Profile Photo</p>
+                                            <input style="display:none" type="file" id="pictureUpload" name="filename">
+                                        </label>
+                                    </div>
+                                    <input type="text" placeholder="First Name" id="FName">
+                                    <input type="text" placeholder="Last Name" id="LName">
+                                    <input type="text" placeholder="E-mail" id="EMail">
+                                    <input type="number" placeholder="Phone" id="Phone">
+                                    <input type="password" placeholder="Password" id="Password">
+                                    <input type="date" placeholder="DOB" id="DOB">
+                                    <input type="text" placeholder="Address" id="Address">
+                                    <input type="text" placeholder="Zip Postal" id="Zip">
+                                    <input type="number" placeholder="ID Number" id="IDNumber">
+                                    <input type="text" placeholder="About Me" id="AboutMe">
+                                    <button id="profile-button" onclick="UpdateProfile()">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!----------------- END OF MIDDLE -------------------->
+                    </div>
+                </div>
+            }
+</main>
+
+    <!----------------- THEME CUSTOMIZATION -------------------->
+    <script src="./index.js"></script>
+    <script src="./profile.js"></script>
+</body>
+
+
+</html>
+<script src="/Scripts/profile.js"></script>
+<script src="/Scripts/index.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: 'GetAchievements',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(),
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var PostOpen = $('<div class="post">');
+                    var AchievementName = $(' <img></img>').attr("src", "../Content/images/Achievements/" + data[i] + ".png").attr("id","achivement-pic");
+                    $(PostOpen).append(AchievementName);
+                    var AchievementText;
+                    if (data[i] == 1) {
+                        AchievementText = "  My First Walk!"
+                    }
+                    else if (data[i] == 2) {
+                        AchievementText = "  My 5th Walk"
+                    }
+                    else if (data[i] == 3) {
+                        AchievementText = "  Im so good at this!"
+                    }
+                    else if (data[i] == 4) {
+                        AchievementText = "  My first rate!"
+                    }
+                    else {
+                        AchievementText = ""
+                    }
+                    $(PostOpen).append(AchievementText);
+                    $('#post-container').append(PostOpen);
+                }
+            },
+            error: function (data) {
+                alert("Data Getirilemedi")
+            }
+        });//get achievements
+        $.ajax({
+            type: "POST",
+            url: 'WalkerConditioner',
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+            }
+        });//update achievements and rating, experience
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            $.ajax({
+                type: "POST",
+                url: 'SendGPS',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ latitude: latitude, longitude: longitude }),
+                success: function (data) {
+                },
+            });
+        },
+        );
+    });
+    function NullToEmpty(check) {
+        if ((check == "") || (check == null)) {
+            return " ";
+        }
+        else {
+            return check;
+        }
+    }
+    function UpdateProfile() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("pictureUpload").files.length;
+        for (var i = 0; i < totalFiles; i++)
+            var file = document.getElementById("pictureUpload").files[i];
+        formData.append("pictureUpload", file);
+        if (totalFiles > 0) {
+            $.ajax({
+                type: "POST",
+                url: '/User/ProfilePhotoUpdate',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+            })
+                .done(function () {
+                    alert("Profil fotoğrafı yüklendi.");
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert("Bir hata oluştu.");
+                })
+
+        }
+        var IDNumber = NullToEmpty($('#IDNumber').val());
+        var FName = NullToEmpty($('#FName').val());
+        var LName = NullToEmpty($('#LName').val());
+        var EMail = NullToEmpty($('#EMail').val());
+        var Phone = NullToEmpty($('#Phone').val());
+        var Password = NullToEmpty($('#Password').val());
+        var DOB = NullToEmpty($('#DOB').val());
+        var Address = NullToEmpty($('#Address').val());
+        var ZipPostal = NullToEmpty($('#Zip').val());
+        var AboutMe = NullToEmpty($('#AboutMe').val()); 
+        $.ajax({
+            type: "POST",
+            url: '/User/UpdateProfile',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ FName: FName, LName: LName, EMail: EMail, Phone: Phone, Password: Password, DOB: DOB, Address: Address, ZipPostal: ZipPostal, IDNumber: IDNumber, AboutMe: AboutMe }),
+            success: function (data) {
+                alert("Profile updated")
+                window.location.href = '../User/LogOut';
+            },
+            error: function (data) {
+                alert("Something wrong happened, sorry.")
+            }
+        });
+    }
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+    showSection('posts');
+    function openPostPopup() {
+        document.getElementById('post-popup').style.display = 'block';
+    }
+    function closePopup() {
+        document.getElementById('post-popup').style.display = 'none';
+    }
+    function openAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'block';
+    }
+    function closeAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'none';
+    }
+    function openEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'block';
+    }
+    function closeEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'none';
+    }
+    function openWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'block';
+    }
+    function closeWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'none';
+    }
+    function openEditWalkerProfilePopup() {
+        document.getElementById('edit-walker-profile-popup').style.display = 'block';
+    }
+    function closeEditWalkerProfilePopup() {
+        document.getElementById('edit-walker-profile-popup').style.display = 'none';
+    }
+</script>

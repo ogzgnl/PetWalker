@@ -1,0 +1,1063 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Achievements">
+          <Key>
+            <PropertyRef Name="AchievementID" />
+          </Key>
+          <Property Name="WalkerID" Type="int" Nullable="false" />
+          <Property Name="AchievementNumber" Type="int" />
+          <Property Name="AchievementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentText" Type="nchar" MaxLength="500" />
+          <Property Name="CommenterID" Type="int" />
+          <Property Name="CommentPostID" Type="int" />
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nchar" MaxLength="20" />
+          <Property Name="LName" Type="nchar" MaxLength="20" />
+          <Property Name="EMail" Type="nchar" MaxLength="30" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" />
+          <Property Name="Password" Type="nchar" MaxLength="20" />
+          <Property Name="DOB" Type="nchar" MaxLength="100" />
+          <Property Name="Address" Type="nchar" MaxLength="100" />
+          <Property Name="ZipPostal" Type="nchar" MaxLength="20" />
+          <Property Name="IDNumber" Type="nchar" MaxLength="20" />
+          <Property Name="ProfilePhoto" Type="nchar" MaxLength="300" />
+          <Property Name="AboutMe" Type="nchar" MaxLength="300" />
+          <Property Name="FollowerCount" Type="int" />
+          <Property Name="FollowingCount" Type="int" />
+          <Property Name="PostCount" Type="int" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="FollowID" />
+          </Key>
+          <Property Name="FollowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Follower" Type="int" />
+          <Property Name="Following" Type="int" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="LikeID" />
+          </Key>
+          <Property Name="LikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LikerID" Type="int" />
+          <Property Name="LikedPostID" Type="int" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageSenderID" Type="int" />
+          <Property Name="MessageReceiverID" Type="int" />
+          <Property Name="MessageText" Type="nchar" MaxLength="200" />
+          <Property Name="MessageDate" Type="datetime" />
+          <Property Name="MessageSenderNameSurname" Type="nchar" MaxLength="100" />
+          <Property Name="MessageReceiverNameSurname" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Weight" Type="nchar" MaxLength="10" />
+          <Property Name="Age" Type="nchar" MaxLength="10" />
+          <Property Name="Braid" Type="nchar" MaxLength="10" />
+          <Property Name="Color" Type="nchar" MaxLength="10" />
+          <Property Name="OwnerID" Type="int" />
+          <Property Name="PetName" Type="nchar" MaxLength="100" />
+          <Property Name="WalkerName" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostOwnerID" Type="int" />
+          <Property Name="PostText" Type="nchar" MaxLength="500" />
+          <Property Name="PostMedia" Type="nchar" MaxLength="100" />
+          <Property Name="PostDate" Type="nchar" MaxLength="150" />
+          <Property Name="PostOwnerNameSurname" Type="nchar" MaxLength="50" />
+          <Property Name="PostOwnerAddress" Type="nchar" MaxLength="50" />
+          <Property Name="PostLikeCount" Type="int" />
+          <Property Name="PostCommentCount" Type="int" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WalkerID" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="WalkID" Type="int" />
+          <Property Name="WalkRate" Type="int" />
+          <Property Name="RateComment" Type="nchar" MaxLength="100" />
+          <Property Name="PetID" Type="int" />
+        </EntityType>
+        <EntityType Name="Walk">
+          <Key>
+            <PropertyRef Name="WalkID" />
+          </Key>
+          <Property Name="WalkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="PetID" Type="int" />
+          <Property Name="WalkerID" Type="int" />
+          <Property Name="Rate" Type="int" />
+          <Property Name="Length" Type="nchar" MaxLength="100" />
+          <Property Name="Price" Type="nchar" MaxLength="100" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Walkers">
+          <Key>
+            <PropertyRef Name="WalkerID" />
+          </Key>
+          <Property Name="WalkerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nchar" MaxLength="20" />
+          <Property Name="LName" Type="nchar" MaxLength="20" />
+          <Property Name="EMail" Type="nchar" MaxLength="25" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" />
+          <Property Name="Password" Type="nchar" MaxLength="10" />
+          <Property Name="DateOfBirth" Type="nchar" MaxLength="100" />
+          <Property Name="Address" Type="nchar" MaxLength="100" />
+          <Property Name="Rating" Type="nchar" MaxLength="10" />
+          <Property Name="Experience" Type="nchar" MaxLength="10" />
+          <Property Name="Latitude" Type="nchar" MaxLength="50" />
+          <Property Name="Longitude" Type="nchar" MaxLength="50" />
+          <Property Name="AboutMe" Type="nchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Achievements_Walkers">
+          <End Role="Walkers" Type="Self.Walkers" Multiplicity="1" />
+          <End Role="Achievements" Type="Self.Achievements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walkers">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Achievements">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+          <End Role="Comment1" Type="Self.Comment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommenterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikedPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="PostOwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Ratings">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="PetID" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Walk">
+          <End Role="Walk" Type="Self.Walk" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walk">
+              <PropertyRef Name="WalkID" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="WalkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Walkers">
+          <End Role="Walkers" Type="Self.Walkers" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walkers">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="PetID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Walkers">
+          <End Role="Walkers" Type="Self.Walkers" Multiplicity="0..1" />
+          <End Role="Walk" Type="Self.Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walkers">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Follower">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Follow" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="Follower" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Following">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Follow" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="Following" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="Achievements" EntityType="Self.Achievements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Follow" EntityType="Self.Follow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Like" EntityType="Self.Like" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Walk" EntityType="Self.Walk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Walkers" EntityType="Self.Walkers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Achievements_Walkers" Association="Self.FK_Achievements_Walkers">
+            <End Role="Walkers" EntitySet="Walkers" />
+            <End Role="Achievements" EntitySet="Achievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Comment" Association="Self.FK_Comment_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Comment1" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Customers" Association="Self.FK_Comment_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Posts" Association="Self.FK_Comment_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Customers" Association="Self.FK_Like_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Posts" Association="Self.FK_Like_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Customers" Association="Self.FK_Pet_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Customers" Association="Self.FK_Posts_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Customers" Association="Self.FK_Ratings_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Ratings" Association="Self.FK_Ratings_Ratings">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Walk" Association="Self.FK_Ratings_Walk">
+            <End Role="Walk" EntitySet="Walk" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Walkers" Association="Self.FK_Ratings_Walkers">
+            <End Role="Walkers" EntitySet="Walkers" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Customers" Association="Self.FK_Walk_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Walk" EntitySet="Walk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Pet" Association="Self.FK_Walk_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Walk" EntitySet="Walk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Walkers" Association="Self.FK_Walk_Walkers">
+            <End Role="Walkers" EntitySet="Walkers" />
+            <End Role="Walk" EntitySet="Walk" />
+          </AssociationSet>
+          <AssociationSet Name="Follower" Association="Self.Follower">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+          <AssociationSet Name="Following" Association="Self.Following">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Follow" EntitySet="Follow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetWalkerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PetWalkerDBEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Achievements" EntityType="PetWalkerDBModel.Achievement" />
+          <EntitySet Name="Comments" EntityType="PetWalkerDBModel.Comment" />
+          <EntitySet Name="Customers" EntityType="PetWalkerDBModel.Customer" />
+          <EntitySet Name="Follows" EntityType="PetWalkerDBModel.Follow" />
+          <EntitySet Name="Likes" EntityType="PetWalkerDBModel.Like" />
+          <EntitySet Name="Messages" EntityType="PetWalkerDBModel.Message" />
+          <EntitySet Name="Pets" EntityType="PetWalkerDBModel.Pet" />
+          <EntitySet Name="Posts" EntityType="PetWalkerDBModel.Post" />
+          <EntitySet Name="Ratings" EntityType="PetWalkerDBModel.Rating" />
+          <EntitySet Name="Walks" EntityType="PetWalkerDBModel.Walk" />
+          <EntitySet Name="Walkers" EntityType="PetWalkerDBModel.Walker" />
+          <AssociationSet Name="FK_Achievements_Walkers" Association="PetWalkerDBModel.FK_Achievements_Walkers">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Achievement" EntitySet="Achievements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Comment" Association="PetWalkerDBModel.FK_Comment_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Comment1" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Customers" Association="PetWalkerDBModel.FK_Comment_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Posts" Association="PetWalkerDBModel.FK_Comment_Posts">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Customers" Association="PetWalkerDBModel.FK_Like_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Customers" Association="PetWalkerDBModel.FK_Pet_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_Customers" Association="PetWalkerDBModel.FK_Posts_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Customers" Association="PetWalkerDBModel.FK_Ratings_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Customers" Association="PetWalkerDBModel.FK_Walk_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+          <AssociationSet Name="Follower" Association="PetWalkerDBModel.Follower">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="Following" Association="PetWalkerDBModel.Following">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Follow" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Posts" Association="PetWalkerDBModel.FK_Like_Posts">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Like" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Ratings" Association="PetWalkerDBModel.FK_Ratings_Ratings">
+            <End Role="Pet" EntitySet="Pets" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Pet" Association="PetWalkerDBModel.FK_Walk_Pet">
+            <End Role="Pet" EntitySet="Pets" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Walk" Association="PetWalkerDBModel.FK_Ratings_Walk">
+            <End Role="Walk" EntitySet="Walks" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Walkers" Association="PetWalkerDBModel.FK_Ratings_Walkers">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Walk_Walkers" Association="PetWalkerDBModel.FK_Walk_Walkers">
+            <End Role="Walker" EntitySet="Walkers" />
+            <End Role="Walk" EntitySet="Walks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Achievement">
+          <Key>
+            <PropertyRef Name="AchievementID" />
+          </Key>
+          <Property Name="WalkerID" Type="Int32" Nullable="false" />
+          <Property Name="AchievementNumber" Type="Int32" />
+          <Property Name="AchievementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Walker" Relationship="PetWalkerDBModel.FK_Achievements_Walkers" FromRole="Achievement" ToRole="Walker" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentText" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="CommenterID" Type="Int32" />
+          <Property Name="CommentPostID" Type="Int32" />
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Comment1" Relationship="PetWalkerDBModel.FK_Comment_Comment" FromRole="Comment" ToRole="Comment1" />
+          <NavigationProperty Name="Comment2" Relationship="PetWalkerDBModel.FK_Comment_Comment" FromRole="Comment1" ToRole="Comment" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Comment_Customers" FromRole="Comment" ToRole="Customer" />
+          <NavigationProperty Name="Post" Relationship="PetWalkerDBModel.FK_Comment_Posts" FromRole="Comment" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="DOB" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="ZipPostal" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="IDNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ProfilePhoto" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+          <Property Name="AboutMe" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+          <Property Name="FollowerCount" Type="Int32" />
+          <Property Name="FollowingCount" Type="Int32" />
+          <Property Name="PostCount" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="PetWalkerDBModel.FK_Comment_Customers" FromRole="Customer" ToRole="Comment" />
+          <NavigationProperty Name="Likes" Relationship="PetWalkerDBModel.FK_Like_Customers" FromRole="Customer" ToRole="Like" />
+          <NavigationProperty Name="Pets" Relationship="PetWalkerDBModel.FK_Pet_Customers" FromRole="Customer" ToRole="Pet" />
+          <NavigationProperty Name="Posts" Relationship="PetWalkerDBModel.FK_Posts_Customers" FromRole="Customer" ToRole="Post" />
+          <NavigationProperty Name="Ratings" Relationship="PetWalkerDBModel.FK_Ratings_Customers" FromRole="Customer" ToRole="Rating" />
+          <NavigationProperty Name="Walks" Relationship="PetWalkerDBModel.FK_Walk_Customers" FromRole="Customer" ToRole="Walk" />
+          <NavigationProperty Name="Follows" Relationship="PetWalkerDBModel.Follower" FromRole="Customer" ToRole="Follow" />
+          <NavigationProperty Name="Follows1" Relationship="PetWalkerDBModel.Following" FromRole="Customer" ToRole="Follow" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="FollowID" />
+          </Key>
+          <Property Name="FollowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Follower" Type="Int32" />
+          <Property Name="Following" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.Follower" FromRole="Follow" ToRole="Customer" />
+          <NavigationProperty Name="Customer1" Relationship="PetWalkerDBModel.Following" FromRole="Follow" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="LikeID" />
+          </Key>
+          <Property Name="LikeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LikerID" Type="Int32" />
+          <Property Name="LikedPostID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Like_Customers" FromRole="Like" ToRole="Customer" />
+          <NavigationProperty Name="Post" Relationship="PetWalkerDBModel.FK_Like_Posts" FromRole="Like" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageSenderID" Type="Int32" />
+          <Property Name="MessageReceiverID" Type="Int32" />
+          <Property Name="MessageText" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="MessageDate" Type="DateTime" Precision="3" />
+          <Property Name="MessageSenderNameSurname" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="MessageReceiverNameSurname" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="PetID" />
+          </Key>
+          <Property Name="PetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Braid" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OwnerID" Type="Int32" />
+          <Property Name="PetName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="WalkerName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Pet_Customers" FromRole="Pet" ToRole="Customer" />
+          <NavigationProperty Name="Ratings" Relationship="PetWalkerDBModel.FK_Ratings_Ratings" FromRole="Pet" ToRole="Rating" />
+          <NavigationProperty Name="Walks" Relationship="PetWalkerDBModel.FK_Walk_Pet" FromRole="Pet" ToRole="Walk" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostOwnerID" Type="Int32" />
+          <Property Name="PostText" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="PostMedia" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="PostDate" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="PostOwnerNameSurname" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="PostOwnerAddress" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="PostLikeCount" Type="Int32" />
+          <Property Name="PostCommentCount" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="PetWalkerDBModel.FK_Comment_Posts" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Posts_Customers" FromRole="Post" ToRole="Customer" />
+          <NavigationProperty Name="Likes" Relationship="PetWalkerDBModel.FK_Like_Posts" FromRole="Post" ToRole="Like" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WalkerID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="WalkID" Type="Int32" />
+          <Property Name="WalkRate" Type="Int32" />
+          <Property Name="RateComment" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="PetID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Ratings_Customers" FromRole="Rating" ToRole="Customer" />
+          <NavigationProperty Name="Pet" Relationship="PetWalkerDBModel.FK_Ratings_Ratings" FromRole="Rating" ToRole="Pet" />
+          <NavigationProperty Name="Walk" Relationship="PetWalkerDBModel.FK_Ratings_Walk" FromRole="Rating" ToRole="Walk" />
+          <NavigationProperty Name="Walker" Relationship="PetWalkerDBModel.FK_Ratings_Walkers" FromRole="Rating" ToRole="Walker" />
+        </EntityType>
+        <EntityType Name="Walk">
+          <Key>
+            <PropertyRef Name="WalkID" />
+          </Key>
+          <Property Name="WalkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="PetID" Type="Int32" />
+          <Property Name="WalkerID" Type="Int32" />
+          <Property Name="Rate" Type="Int32" />
+          <Property Name="Length" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="PetWalkerDBModel.FK_Walk_Customers" FromRole="Walk" ToRole="Customer" />
+          <NavigationProperty Name="Pet" Relationship="PetWalkerDBModel.FK_Walk_Pet" FromRole="Walk" ToRole="Pet" />
+          <NavigationProperty Name="Ratings" Relationship="PetWalkerDBModel.FK_Ratings_Walk" FromRole="Walk" ToRole="Rating" />
+          <NavigationProperty Name="Walker" Relationship="PetWalkerDBModel.FK_Walk_Walkers" FromRole="Walk" ToRole="Walker" />
+        </EntityType>
+        <EntityType Name="Walker">
+          <Key>
+            <PropertyRef Name="WalkerID" />
+          </Key>
+          <Property Name="WalkerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="LName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Rating" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Experience" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="AboutMe" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Achievements" Relationship="PetWalkerDBModel.FK_Achievements_Walkers" FromRole="Walker" ToRole="Achievement" />
+          <NavigationProperty Name="Ratings" Relationship="PetWalkerDBModel.FK_Ratings_Walkers" FromRole="Walker" ToRole="Rating" />
+          <NavigationProperty Name="Walks" Relationship="PetWalkerDBModel.FK_Walk_Walkers" FromRole="Walker" ToRole="Walk" />
+        </EntityType>
+        <Association Name="FK_Achievements_Walkers">
+          <End Type="PetWalkerDBModel.Walker" Role="Walker" Multiplicity="1" />
+          <End Type="PetWalkerDBModel.Achievement" Role="Achievement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Achievement">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Comment">
+          <End Type="PetWalkerDBModel.Comment" Role="Comment" Multiplicity="1" />
+          <End Type="PetWalkerDBModel.Comment" Role="Comment1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="Comment1">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommenterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Posts">
+          <End Type="PetWalkerDBModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Pet" Role="Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="PostOwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Customers">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Walk" Role="Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Follower">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Follow" Role="Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="Follower" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Following">
+          <End Type="PetWalkerDBModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Follow" Role="Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Follow">
+              <PropertyRef Name="Following" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Posts">
+          <End Type="PetWalkerDBModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Like" Role="Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="LikedPostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Ratings">
+          <End Type="PetWalkerDBModel.Pet" Role="Pet" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="PetID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Pet">
+          <End Type="PetWalkerDBModel.Pet" Role="Pet" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Walk" Role="Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="PetID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Walk">
+          <End Type="PetWalkerDBModel.Walk" Role="Walk" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walk">
+              <PropertyRef Name="WalkID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="WalkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Walkers">
+          <End Type="PetWalkerDBModel.Walker" Role="Walker" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Walk_Walkers">
+          <End Type="PetWalkerDBModel.Walker" Role="Walker" Multiplicity="0..1" />
+          <End Type="PetWalkerDBModel.Walk" Role="Walk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Walker">
+              <PropertyRef Name="WalkerID" />
+            </Principal>
+            <Dependent Role="Walk">
+              <PropertyRef Name="WalkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="PetWalkerDBEntities" >
+          <EntitySetMapping Name="Achievements">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Achievement">
+              <MappingFragment StoreEntitySet="Achievements">
+                <ScalarProperty Name="AchievementID" ColumnName="AchievementID" />
+                <ScalarProperty Name="AchievementNumber" ColumnName="AchievementNumber" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="CommentPostID" ColumnName="CommentPostID" />
+                <ScalarProperty Name="CommenterID" ColumnName="CommenterID" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="PostCount" ColumnName="PostCount" />
+                <ScalarProperty Name="FollowingCount" ColumnName="FollowingCount" />
+                <ScalarProperty Name="FollowerCount" ColumnName="FollowerCount" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="ZipPostal" ColumnName="ZipPostal" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Follows">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Follow">
+              <MappingFragment StoreEntitySet="Follow">
+                <ScalarProperty Name="Following" ColumnName="Following" />
+                <ScalarProperty Name="Follower" ColumnName="Follower" />
+                <ScalarProperty Name="FollowID" ColumnName="FollowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Likes">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Like">
+              <MappingFragment StoreEntitySet="Like">
+                <ScalarProperty Name="LikedPostID" ColumnName="LikedPostID" />
+                <ScalarProperty Name="LikerID" ColumnName="LikerID" />
+                <ScalarProperty Name="LikeID" ColumnName="LikeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageReceiverNameSurname" ColumnName="MessageReceiverNameSurname" />
+                <ScalarProperty Name="MessageSenderNameSurname" ColumnName="MessageSenderNameSurname" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="MessageReceiverID" ColumnName="MessageReceiverID" />
+                <ScalarProperty Name="MessageSenderID" ColumnName="MessageSenderID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pets">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Pet">
+              <MappingFragment StoreEntitySet="Pet">
+                <ScalarProperty Name="WalkerName" ColumnName="WalkerName" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Braid" ColumnName="Braid" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="PostCommentCount" ColumnName="PostCommentCount" />
+                <ScalarProperty Name="PostLikeCount" ColumnName="PostLikeCount" />
+                <ScalarProperty Name="PostOwnerAddress" ColumnName="PostOwnerAddress" />
+                <ScalarProperty Name="PostOwnerNameSurname" ColumnName="PostOwnerNameSurname" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="PostMedia" ColumnName="PostMedia" />
+                <ScalarProperty Name="PostText" ColumnName="PostText" />
+                <ScalarProperty Name="PostOwnerID" ColumnName="PostOwnerID" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="RateComment" ColumnName="RateComment" />
+                <ScalarProperty Name="WalkRate" ColumnName="WalkRate" />
+                <ScalarProperty Name="WalkID" ColumnName="WalkID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Walks">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Walk">
+              <MappingFragment StoreEntitySet="Walk">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="WalkID" ColumnName="WalkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Walkers">
+            <EntityTypeMapping TypeName="PetWalkerDBModel.Walker">
+              <MappingFragment StoreEntitySet="Walkers">
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="WalkerID" ColumnName="WalkerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

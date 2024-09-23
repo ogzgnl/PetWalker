@@ -1,0 +1,51 @@
+*{
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+body{
+    background-image:url(~/Content/images/signUpPagePics.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    animation: backgrounChange 1s;
+  }
+
+  @keyframes backgrounChange {
+    from {background-color: rgb(255, 255, 255);}
+    to {background-color: rgba(210, 210, 210, 0.433);}
+  }
+.container{
+    display:flexbox;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUpForm{
+    background-color: rgba(0, 0, 0, 0.5 );
+    margin-top: 3%;
+    border: 1px solid black;
+    border-radius: 2%;
+    padding:3%;
+    width: 70%; 
+    max-width: 500px;
+    box-sizing: border-box; 
+    color: white;
+}
+
+.EditNavbar{
+    background-color: rgba(224, 206, 192, 0.753);
+}
+ 
+.nav-item:hover{
+    background-color:rgba(218, 213, 213, 0.35);
+    font-size: larger;
+    border-radius: 10%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+ 
+.whiteOut{
+    background-color: whitesmoke;
+}

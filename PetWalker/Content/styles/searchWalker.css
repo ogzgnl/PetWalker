@@ -1,0 +1,105 @@
+/* Genel stiller */
+*{
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  @keyframes backgrounChange {
+    from {background-color: rgb(255, 255, 255);}
+    to {background-color: rgba(210, 210, 210, 0.433);}
+  }
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form stilleri */
+.search-form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Gezginci sonuçları stilleri */
+.walker {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.walker h2 {
+    margin-top: 0;
+}
+
+.walker button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.walker button:hover {
+    background-color: #0056b3;
+}
+
+.borderRadıus{
+    border-radius: 10px;
+}
+
+
+.EditNavbar{
+    background-color: rgba(239, 145, 69, 0.753);
+ }
+ 
+ .nav-item:hover{
+     background-color:rgba(218, 213, 213, 0.35);
+     font-size: larger;
+     border-radius: 10%;
+     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+ 
+  .whiteOut{
+     background-color: whitesmoke;
+  }

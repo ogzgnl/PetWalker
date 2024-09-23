@@ -1,0 +1,105 @@
+/* Temel CSS stilleri */
+*{
+  font-family: 'Courier New', Courier, monospace;
+  
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    animation-name: backgrounChange;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes backgrounChange {
+    from {background-color: rgb(255, 255, 255);}
+    to {background-color: rgba(210, 210, 210, 0.433);}
+  }
+
+  
+  .container {
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  .profile {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .profile-details h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .upload-section {
+    text-align: center;
+  }
+  
+  .upload-section input[type="file"] {
+    display: none;
+  }
+  
+  .upload-section label {
+    padding: 10px 15px;
+    background-color: #3897f0;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* Diğer stiller */
+
+.photos {
+    margin-top: 30px;
+  }
+  
+  .photos h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .photos-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+  
+  .photos img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .EditNavbar{
+    background-color: rgba(239, 145, 69, 0.753);
+ }
+ 
+ .nav-item:hover{
+     background-color:rgba(218, 213, 213, 0.35);
+     font-size: larger;
+     border-radius: 10%;
+     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+ 
+  .whiteOut{
+     background-color: whitesmoke;
+  }
+  

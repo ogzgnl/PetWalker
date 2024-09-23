@@ -1,0 +1,77 @@
+*{
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+body {
+    background-image:url(~/Content/images/addPet.jpg);
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.addPet-form {
+    color: white;
+}
+
+.container {
+    width: 30%;
+    margin: 20px auto;
+    border-radius: 5px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5 );
+}
+
+form {
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+}
+    
+
+label { 
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px
+     solid #ccc;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffbf00;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+/* Footer styles (adjust as needed) */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+.EditNavbar{
+    background-color: rgba(239, 145, 69, 0.753);
+ }
+ 
+ .whiteOut{
+    background-color: whitesmoke;
+ }
+
+
+.addBackground {
+    background-image: url('/Content/images/signin.jpg'); /* Corrected path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

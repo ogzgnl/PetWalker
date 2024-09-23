@@ -1,0 +1,511 @@
+﻿@model List<PetWalker.Models.Message>
+@{
+    var LoggedIn = "Not Logged";
+    var Extension = ".png";
+    var Walker = "Not Logged";
+
+    if (Session["ID"] != null)
+    {
+        LoggedIn = Session["ID"].ToString();
+        Walker = Session["IsWalker"].ToString();
+    }
+    else
+    {
+        LoggedIn = "Not Logged";
+    }
+
+}
+<style>
+    .add-pet-popup-content {
+        overflow-y: scroll;
+        max-height: 90%;
+    }
+
+        .add-pet-popup-content::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+</style>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="~/Content/styles/style.css">
+</head>
+<body>
+
+
+    <!-------------------------------- MAIN ----------------------------------->
+    <main>
+        <div class="container-2x">
+            <!----------------- LEFT -------------------->
+            <div class="left">
+                <a class="profile" href="/User/UserProfile">
+                    <div id="profile-photo-index">
+                        <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+
+                    </div>
+                    <div class="handle">
+                        <h4>@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h4>
+                        <p class="text-muted">
+                            #@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))
+                        </p>
+                    </div>
+                </a>
+
+                <!----------------- SIDEBAR -------------------->
+                <div class="sidebar">
+                    @if (Walker == "yes")
+                    {
+                        <a href="/Home/Index" class="menu-item active">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/Walker/WalkerProfile class="menu-item" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Index" class="menu-item ">
+                            <span><i class="uil uil-home"></i></span>
+                            <h3>Home</h3>
+                        </a>
+                        <a href="/User/SearchProfile" class="menu-item">
+                            <span><i class="uil uil-compass"></i></span>
+                            <h3>Explore</h3>
+                        </a>
+                        <a href="/User/Chat" class="menu-item" id="messages-notifications">
+                            <span><i class="uil uil-envelope-alt"></i></span>
+                            <h3>Messages</h3>
+                        </a>
+                        <a href=/Walker/WalkDetail class="menu-item ">
+                            <span style="margin-left: 5px;"><i class="fa fa-paw"></i></span>
+                            <h3 style="margin-left: 30px;">Walks</h3>
+                        </a>
+                        <a href=/User/UserProfile class="menu-item active" id="theme">
+                            <span><i class="uil uil-user"></i></span>
+                            <h3>Profile</h3>
+                        </a>
+                    }
+
+                </div>
+                <!----------------- END OF SIDEBAR -------------------->
+            </div>
+
+            <!----------------- MIDDLE -------------------->
+            <div class="middle">
+                <div id="profile-page">
+                    <div id="profile-container">
+                        <div id="profile-header">
+                            <div id="profile-photo">
+                                <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                            </div>
+                            <div id="profile-stats">
+                                <h1 id="username">@Html.Label(Convert.ToString(Session["FName"]), Convert.ToString(Session["FName"])) @Html.Label(Convert.ToString(Session["LName"]), Convert.ToString(Session["LName"]))</h1>
+                                <div id="stats">
+                                    <div class="stat">
+                                        <span class="count" id="PostCount">0</span>
+                                        <span class="label">Posts</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span id="FollowerCount" class="count">0</span>
+                                        <span class="label">Follow</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span id="FollowingCount" class="count">0</span>
+                                        <span class="label">Followers</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="profile-buttons">
+                                <button onclick="openEditProfilePopup()" id="profile-button">Edit Profile</button>                                
+                            </div>
+                        </div>
+                        <div id="profile-info">
+                            <h2>About Me</h2>
+                            <p>
+                                @Html.Label(Convert.ToString(Session["AboutMe"]), Convert.ToString(Session["AboutMe"]))
+                            </p>
+                            <p>
+                                EMail: @Html.Label(Convert.ToString(Session["EMail"]), Convert.ToString(Session["EMail"]))
+                            </p>
+                            <p>
+                                Phone: @Html.Label(Convert.ToString(Session["Phone"]), Convert.ToString(Session["Phone"]))
+                            </p>
+                            <p>
+                                Date of Birth:  @Html.Label(Convert.ToString(Session["DOB"]), Convert.ToString(Session["DOB"]))
+                            </p>
+                            <p>
+                                Address: @Html.Label(Convert.ToString(Session["Address"]), Convert.ToString(Session["Address"]))
+                            </p>
+                            <p>
+                                Zip Postal: @Html.Label(Convert.ToString(Session["ZipPostal"]), Convert.ToString(Session["ZipPostal"]))
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="profile-nav-container">
+                        <div class="nav-item active">
+                            <button onclick="showSection('posts')">
+                                <span class="icon">⬛</span>
+                                <span class="label">POSTS</span>
+                            </button>
+                        </div>                      
+
+                        <div class="nav-item">
+                            <button onclick="showSection('pets')">
+                                <span class="icon">🐾</span>
+                                <span class="label">PETS</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="posts" class="content-section">
+                        <div id="post-container">
+                        </div>
+                    </div>
+                                      
+
+                    <div id="pets" class="content-section">
+                        <div id="post-container" class="post-container">
+                            <div class="add-pet-container" onclick="openAddPetPopup()">
+                                <div class="add-pet-icon">+</div>
+                                <p>Add New Pet</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!---Edit Profile Popup--->
+                    <div id="edit-profile-popup" class="popup">
+                        <div style="margin: 1.5% auto;" class="add-pet-popup-content">
+                            <span class="close" onclick="closeEditProfilePopup()">&times;</span>
+                            <div class="add-pet-form">
+                                <h2>Edit Profile</h2>
+                                <div class="image-container">
+                                    <img src="/Content/images/ProfilePhotos/@LoggedIn@Extension">
+                                    <label style="margin-top:10px;padding:10px;" class="btn btn-primary">
+                                        <p>Change Profile Photo</p>
+                                        <input style="display:none" type="file" id="pictureUpload" name="filename">
+                                    </label>                                    
+                                </div>
+                                <input type="text" placeholder="First Name" id="FName">
+                                <input type="text" placeholder="Last Name" id="LName">
+                                <input type="text" placeholder="E-mail" id="EMail">
+                                <input type="number" placeholder="Phone" id="Phone">
+                                <input type="password" placeholder="Password" id="Password">
+                                <input type="date" placeholder="DOB" id="DOB">
+                                <input type="text" placeholder="Address" id="Address">
+                                <input type="text" placeholder="Zip Postal" id="Zip">
+                                <input type="number" placeholder="ID Number" id="IDNumber">
+                                <input type="text" placeholder="About Me" id="AboutMe">
+                                <button id="profile-button" onclick="UpdateProfile()">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!---Pet Add Popup--->
+
+                    <div id="add-pet-popup" class="popup">
+                        <div class="add-pet-popup-content">
+                            <span class="close" onclick="closeAddPetPopup()">&times;</span>
+                            <div class="add-pet-form">
+                                <h2>Add New Pet</h2>
+                                <div class="image-container">
+                                    <img id="image-preview" class="image-preview" src="/Content/Images/Pets/pet-blank.jpeg" alt="Pet Image" onclick="document.getElementById('pet-image').click()">
+                                    <label style="margin-top:10px;padding:10px;" class="btn btn-primary">
+                                        <p>Add Pet Image</p>
+                                        <input style="display:none" type="file" id="PetPictureUpload" name="filename">
+                                    </label>
+                                </div>
+                                <input type="text" placeholder="Pet Name" id="PetName">
+                                <input type="number" placeholder="Weight" id="PetWeight">
+                                <input type="number" placeholder="Age" id="PetAge">
+                                <input type="text" placeholder="Breed" id="PetBreed">
+                                <input type="text" placeholder="Color" id="PetColor">
+                                <button id="profile-button" onclick="AddPet()">Add Pet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----------------- END OF MIDDLE -------------------->
+                <!----------------- RIGHT -------------------->
+                <div class="right">
+                </div>
+            </div>
+            <!----------------- END OF RIGHT -------------------->
+        </div>
+    </main>
+    <!----------------- THEME CUSTOMIZATION -------------------->
+    <div class="customize-theme">
+        <div class="card">
+            <h2>Customize your view</h2>
+            <p class="text-muted">Manage your font size, color, and background</p>
+
+            <!----------- FONT SIZE ----------->
+            <div class="font-size">
+                <h4>Font Size</h4>
+                <div>
+                    <h6>Aa</h6>
+                    <div class="choose-size">
+                        <span class="font-size-1"></span>
+                        <span class="font-size-2 active"></span>
+                        <span class="font-size-3"></span>
+                        <span class="font-size-4"></span>
+                        <span class="font-size-5"></span>
+                    </div>
+                    <h3>Aa</h3>
+                </div>
+            </div>
+
+            <!----------- PRIMARY COLORS ----------->
+            <div class="color">
+                <h4>Color</h4>
+                <div class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+
+            <!----------- BACKGROUND COLORS ----------->
+            <div class="background">
+                <h4>Background</h4>
+                <div class="choose-bg">
+                    <div class="bg-1 active">
+                        <span></span>
+                        <h5 for="bg-1">Light</h5>
+                    </div>
+                    <div class="bg-2">
+                        <span></span>
+                        <h5 for="bg-2">Dim</h5>
+                    </div>
+                    <div class="bg-3">
+                        <span></span>
+                        <h5 for="bg-3">Dark</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="/Scripts/profile.js"></script>
+<script src="/Scripts/index.js"></script>
+<script>
+    $(document).ready(function () {
+        GetPost();
+        GetPet();
+        $.ajax({ //gets post count
+            type: "POST",
+            url: 'GetPostCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#PostCount').text(data);
+            }
+        });
+        $.ajax({ //gets post count
+            type: "POST",
+            url: 'GetFollowCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#FollowingCount').text(data);
+            }
+        });
+        $.ajax({ //gets post count
+            type: "POST",
+            url: 'GetFollowerCount',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#FollowerCount').text(data);
+            }
+        });
+    }
+    );
+    function AddPet() {
+
+        var PetName = $('#PetName').val();
+        var PetWeight = $('#PetWeight').val();
+        var PetAge = $('#PetAge').val();
+        var PetBreed = $('#PetBreed').val();
+        var PetColor = $('#PetColor').val();
+        var PetID = 0;
+        $.ajax({
+            type: "POST",
+            url: 'PetCreater',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ PetName: PetName, PetWeight: PetWeight, PetAge: PetAge, PetBreed: PetBreed, PetColor: PetColor }),
+            success: function (data) {
+                alert("Pet added to profile!");
+                location.reload();
+            }
+        });
+        var formData = new FormData();
+        var totalFiles = document.getElementById("PetPictureUpload").files.length;
+        for (var i = 0; i < totalFiles; i++)
+            var file = document.getElementById("PetPictureUpload").files[i];
+        formData.append("PetPictureUpload", file);
+        if (totalFiles > 0) {
+            $.ajax({
+                type: "POST",
+                url: 'PetPhotoUpdate',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+            })
+                .done(function () {
+                    alert("Photo upload completed!");
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert("Something wrong happened!");
+                })
+
+        }
+    }
+    function GetPost() {
+        $.ajax({
+            type: "POST",
+            url: 'GetPosts',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                for (var z = 0; z < data.length; z++) {
+                    var PostOpen = $('<div class="post">');
+                    var UserName = $('<img class="post-image" src="/Content/Images/Posts/' + data[z] + '.png"alt="Pet Image" onclick="openPostPopup()">').html(data[z]).show(300);
+                    $(PostOpen).append(UserName);
+                    $('#post-container').append(PostOpen);
+                }
+            }
+        });
+    }
+    function GetPet() {
+        $.ajax({
+            type: "POST",
+            url: 'GetPet',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var loopCount = data.length / 6;
+                for (var z = 0; z < loopCount; z++) {
+                    var Header = $('<div class="pet-container">');
+                    var PetPhoto = $('<img src="/Content/Images/Pets/' + data[z*6]+'.png">').html(data[z * 6]).show(300);
+                    var PetInfo = $('<div class="pet-info">');
+                    var PetName = $('<p></p>').html("Pet Name: "+data[z * 6 + 1]).show(300);
+                    var PetWeight = $('<p></p>').html("Pet Weight: "+data[z * 6 + 2]).show(300);
+                    var PetAge = $('<p></p>').html("Pet Age: "+data[z * 6 + 3]).show(300);
+                    var PetBreed = $('<p></p>').html("Pet Braid:" +data[z * 6 + 4]).show(300);
+                    var PetColor = $('<p></p>').html("Pet Color:" + data[z * 6 + 5]).show(300);
+                    var WalkButton = $('<a href="/Walker/Search""><button id="profile-button">Lets Walk!</button></a>');
+                    Header.append(PetPhoto);
+                    Header.append(PetInfo);
+                    PetInfo.append(PetName, PetWeight, PetAge, PetBreed, PetColor, WalkButton);
+                    $('.post-container:last').last().append(Header);
+
+                }
+            }
+        });
+    }
+    function ToggleProfile() {
+        $('.profile-details4Edit').toggle(300);
+        $('.profile-details').toggle(300);
+    }
+    function UpdateProfile() {
+
+        var formData = new FormData();
+        var totalFiles = document.getElementById("pictureUpload").files.length;
+        for (var i = 0; i < totalFiles; i++)
+            var file = document.getElementById("pictureUpload").files[i];
+        formData.append("pictureUpload", file);
+        if (totalFiles > 0) {
+            $.ajax({
+                type: "POST",
+                url: 'ProfilePhotoUpdate',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+            })
+                .done(function () {
+                    alert("Profile hoto upload completed.");
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert("Something terrible happened");
+                })
+
+        }
+        var IDNumber = NullToEmpty($('#IDNumber').val());
+        var FName = NullToEmpty($('#FName').val());
+        var LName = NullToEmpty($('#LName').val());
+        var EMail = NullToEmpty($('#EMail').val());
+        var Phone = NullToEmpty($('#Phone').val());
+        var Password = NullToEmpty($('#Password').val());
+        var DOB = NullToEmpty($('#DOB').val());
+        var Address = NullToEmpty($('#Address').val());
+        var ZipPostal = NullToEmpty($('#Zip').val());
+        var AboutMe = NullToEmpty($('#AboutMe').val()); 
+        $.ajax({
+            type: "POST",
+            url: 'UpdateProfile',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ FName: FName, LName: LName, EMail: EMail, Phone: Phone, Password: Password, DOB: DOB, Address: Address, ZipPostal: ZipPostal, IDNumber: IDNumber, AboutMe: AboutMe }),
+            success: function (data) {
+                alert("Profile updated")
+                window.location.href = '../User/LogOut';
+            },
+            error: function (data) {
+                alert("Something wrong happened, sorry.")
+            }
+        });
+    }
+    function NullToEmpty(check) {
+        if ((check == "") || (check == null)) {
+            return " ";
+        }
+        else {
+            return check;
+        }
+    }
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
+    showSection('posts');
+    function openPostPopup() {
+        document.getElementById('post-popup').style.display = 'block';
+    }
+    function closePopup() {
+        document.getElementById('post-popup').style.display = 'none';
+    }
+    function openAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'block';
+    }
+    function closeAddPetPopup() {
+        document.getElementById('add-pet-popup').style.display = 'none';
+    }
+    function openEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'block';
+    }
+    function closeEditProfilePopup() {
+        document.getElementById('edit-profile-popup').style.display = 'none';
+    }
+    function openWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'block';
+    }
+    function closeWalkDetailsPopup() {
+        document.getElementById('walk-details-popup').style.display = 'none';
+    }
+</script>
